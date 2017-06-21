@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -109,7 +110,7 @@ public class Main extends JPanel implements Runnable {
 		flashDisplay = new ArrayList<Box>();
 		damageFields = new ArrayList<DamageField>();
 		entities.add(new Slasher(200, 200));
-		entities.add(new Slasher(400, 200));
+		//entities.add(new Slasher(400, 200));
 
 		objectDefine = true;
 		repaint();
@@ -126,7 +127,7 @@ public class Main extends JPanel implements Runnable {
 			if (PC.iframes % 6 < 3) {
 				PC.draw(g);
 			}
-			
+
 			for (Entity e : entities) {
 				if (e.iframes % 6 < 3) {
 					e.draw(g);
@@ -158,6 +159,23 @@ public class Main extends JPanel implements Runnable {
 			}
 		}
 		return false;
+	}
+
+	public boolean lineOsight(int x1, int y1, int x2, int y2) {
+		Line2D line = new Line2D.Double(x1, y1, x2, y2);
+
+		for (int i = 0; i < boxes.length; i++) {
+			if (boxes[i] == null) {
+				continue;
+			} else {
+				if (boxes[i].collides(line)) {
+					return false;
+				}
+			}
+
+		}
+
+		return true;
 	}
 
 	public boolean clsnCheck(Entity entity) {

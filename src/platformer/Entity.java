@@ -22,8 +22,8 @@ public class Entity {
 	public double gravity = 2;
 	public double gravityFloat = 1.5;
 	public double jumpStrenght = 18;
-	public double walkspeed = 5;
-	public double xvMax = 15;
+	public double walkspeed = 6;
+	public double xvMax = 18;
 	public double friction = 5;
 	public double airFriction = 2;
 
@@ -35,7 +35,7 @@ public class Entity {
 	int attack1 = 0;
 	int attack1Duration = 5;
 	int attackPower = 10;
-	int attackKnockBack = 25;
+	int attackKnockBack = 20;
 	double knockBackResist = 0;
 
 	int fieldWidth = 16;
@@ -168,6 +168,7 @@ public class Entity {
 		if (iframes > 0) {
 			iframes--;
 		}
+		
 		addVelocity(game);
 		Physics(game);
 

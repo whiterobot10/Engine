@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Line2D;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
@@ -83,6 +84,11 @@ public class Box {
 	public boolean collides(Rectangle rect) {
 		Rectangle hold = new Rectangle(xMin, yMin, xMax - xMin, yMax - yMin);
 		return hold.intersects(rect);
+
+	}
+	public boolean collides(Line2D line) {
+		Rectangle hold = new Rectangle(xMin, yMin, xMax - xMin, yMax - yMin);
+		return hold.intersectsLine(line);
 
 	}
 

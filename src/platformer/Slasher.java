@@ -32,6 +32,10 @@ public class Slasher extends Entity {
 
 	@Override
 	public void update(Main game) {
+		if(game.lineOsight((int)x+(width/2), (int)y+(height/2), (int)game.PC.x+(game.PC.width/2), (int)game.PC.y+(game.PC.height/2))){
+			System.out.println("LineOfSight");
+			}
+		System.out.println("test");
 		if (game.PC.x > x) {
 			if (direction > 0) {
 				direction = 30;
