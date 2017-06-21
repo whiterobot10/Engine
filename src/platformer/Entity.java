@@ -32,11 +32,13 @@ public class Entity {
 	boolean up = false;
 	boolean up2 = false;
 	boolean down = false;
+
 	int attack1 = 0;
 	int attack1Duration = 5;
 	int attackPower = 10;
 	int attackKnockBack = 20;
 	double knockBackResist = 0;
+	int attack1Delay = 5;
 
 	int fieldWidth = 16;
 	int fieldHeight = 32;
@@ -141,7 +143,7 @@ public class Entity {
 		}
 		if (left) {
 			if ((xv * -1) + walkspeed >= xvMax) {
-				xv = xvMax*-1;
+				xv = xvMax * -1;
 			} else {
 				xv -= walkspeed;
 			}
@@ -168,7 +170,7 @@ public class Entity {
 		if (iframes > 0) {
 			iframes--;
 		}
-		
+
 		addVelocity(game);
 		Physics(game);
 
@@ -190,8 +192,19 @@ public class Entity {
 						.add(new Box((int) x + 33, (int) y, (int) x + 53, (int) y + fieldHeight, game.Image1, 0, 0));
 
 			}
-			attack1--;
+			if (attack1 == 1) {
+				attack1 = -1;
+			} else {
+				attack1--;
+			}
 		}
+
+		else if (attack1 > attack1Delay * -1 && !(attack1 == 0)) {
+			attack1--;
+		} else {
+			attack1 = 0;
+		}
+		System.out.println(attack1);
 	}
 
 	public void takeDamage(Main game) {

@@ -74,7 +74,7 @@ public class Main extends JPanel implements Runnable {
 				if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 					PC.down = true;
 				}
-				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+				if (e.getKeyCode() == KeyEvent.VK_SPACE&&PC.attack1==0) {
 					PC.attack1 = PC.attack1Duration;
 				}
 			}
