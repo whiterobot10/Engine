@@ -178,13 +178,13 @@ public class Entity {
 			if (facingLeft) {
 
 				game.damageFields.add(new DamageField((int) x - 21, (int) y, (int) x - 1, (int) y + fieldHeight,
-						attackPower, attackKnockBack * -1, -10));
+						attackPower, attackKnockBack * -1, -7));
 				game.flashDisplay.add(new Box((int) x - 21, (int) y, (int) x - 1, (int) y + fieldHeight, game.Image1,
 						(attack1Duration - attack1) * fieldWidth, 0, true));
 			} else {
 
 				game.damageFields.add(new DamageField((int) x + 33, (int) y, (int) x + 53, (int) y + fieldHeight,
-						attackPower, attackKnockBack, -10));
+						attackPower, attackKnockBack, -7));
 				game.flashDisplay
 						.add(new Box((int) x + 33, (int) y, (int) x + 53, (int) y + fieldHeight, game.Image1, 0, 0));
 
