@@ -4,15 +4,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Slasher extends Entity {
-	int direction = 0;
 
 	public Slasher(double xstart, double ystart) {
 		super(xstart, ystart);
 		width = 32;
 		height = 32;
-		walkspeed = 2;
-		xvMax = 10;
-		friction = 0.1;
+		walkspeed = 3.5;
+		friction = 3.5;
 		health = 32;
 
 	}
@@ -26,51 +24,56 @@ public class Slasher extends Entity {
 		g.fillOval((int) x, (int) y, width, height);
 		g.setColor(Color.RED);
 		g.fillRect((int) x, (int) y + (height / 2) - 2, width, 4);
-		g.fillRect((int) x + (width / 2) - 2, (int) y, 4, height);		
+		g.fillRect((int) x + (width / 2) - 2, (int) y, 4, height);
 		g.fillRect((int) x, (int) y - 10, health, 5);
 	}
 
 	@Override
 	public void update(Main game) {
-//		if(game.lineOsight((int)x+(width/2), (int)y+(height/2), (int)game.PC.x+(game.PC.width/2), (int)game.PC.y+(game.PC.height/2))){
-//			System.out.println("LineOfSight");
-//			}
-		//System.out.println("test");
-		if (game.PC.x > x) {
-			if (direction > 0) {
-				direction = 30;
-			} else {
-				direction += 1;
+		// if(game.lineOsight((int)x+(width/2), (int)y+(height/2),
+		// (int)game.PC.x+(game.PC.width/2),
+		// (int)game.PC.y+(game.PC.height/2))){
+		// System.out.println("LineOfSight");
+		// }
+		// System.out.println("test");
+
+		if (game.lineOsight((int) x + (width / 2), (int) y + (height / 2), (int) game.PC.x + (game.PC.width / 2),
+				(int) game.PC.y + (game.PC.height / 2))) {
+			xvMax = 18;
+
+			if (game.PC.x < x) {
+				left = true;
+				right = false;
 			}
-		}
-
-		if (game.PC.x < x) {
-			if (direction < 0) {
-				direction = -30;
-			} else {
-				direction -= 1;
+			if (game.PC.x > x) {
+				left = false;
+				right = true;
 			}
-		}
 
-		if (game.PC.y+20 < y) {
-			up2 = true;
 		} else {
-			up2 = false;
-		}
+			xvMax = 10;
+			if (facingLeft) {
+				left = true;
+				right = false;
+				x = x - 10;
+				if (game.clsnCheck(this)) {
+					facingLeft = false;
+				}
+				x = x + 10;
+			} else {
+				right = true;
+				left = false;
 
-		if (direction < 0) {
-			left = true;
-		} else {
-			left = false;
-		}
-		if (direction > 0) {
-			right = true;
-		} else {
-			right = false;
+				x = x + 10;
+				if (game.clsnCheck(this)) {
+					facingLeft = true;
+				}
+				x = x - 10;
+			}
 		}
 
 		super.update(game);
-		
+
 	}
 
 }

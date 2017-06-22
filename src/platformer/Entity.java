@@ -36,7 +36,7 @@ public class Entity {
 	int attack1 = 0;
 	int attack1Duration = 5;
 	int attackPower = 10;
-	int attackKnockBack = 20;
+	int attackKnockBack = 35;
 	double knockBackResist = 0;
 	int attack1Delay = 5;
 
