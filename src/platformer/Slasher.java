@@ -53,9 +53,9 @@ public class Slasher extends Entity {
 				}
 			}
 
-			System.out.println("active");
+			
 		} else {
-			System.out.println("passive");
+			
 			xvMax = 5;
 			y -= 1;
 			if (facingLeft) {

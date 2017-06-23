@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -40,6 +41,8 @@ public class Main extends JPanel implements Runnable {
 	public int fps = 100;
 	public double movementSpeed = 1;
 	public double movementFrame = 1;
+	public double scrollX = 0;
+	public double scrollXPoint = 200;
 
 	public boolean objectDefine = false;
 	public boolean running = true;
@@ -101,10 +104,10 @@ public class Main extends JPanel implements Runnable {
 	void defineObjects() {
 		PC = new Player(300, 0);
 		boxes = new Box[30];
-		boxes[0] = new Box(0, 350, 600, 400);
+		boxes[0] = new Box(0, 350, 900, 400);
 		boxes[1] = new Box(0, 250, 350, 280);
 		boxes[2] = new Box(0, 0, 50, 400);
-		boxes[3] = new Box(550, 0, 600, 400);
+		boxes[3] = new Box(850, 0, 900, 400);
 
 		entities = new ArrayList<Entity>();
 		flashDisplay = new ArrayList<Box>();
@@ -123,6 +126,10 @@ public class Main extends JPanel implements Runnable {
 
 	public void paint(Graphics g) {
 		super.paint(g);
+		AffineTransform Trans = new AffineTransform();
+		Trans.translate(scrollX*-1, 0);
+		Graphics2D g2d = (Graphics2D)g;
+		g2d.transform(Trans);
 		if (objectDefine) {
 			PC.draw(g);
 			if (PC.iframes % 6 < 3) {
@@ -146,7 +153,9 @@ public class Main extends JPanel implements Runnable {
 				}
 			}
 			flashDisplay.clear();
+
 		}
+	
 	}
 
 	public boolean clsnCheck(Rectangle rect) {
@@ -162,8 +171,8 @@ public class Main extends JPanel implements Runnable {
 		}
 		return false;
 	}
-	
-	public void GameOver(){
+
+	public void GameOver() {
 		System.exit(0);
 	}
 

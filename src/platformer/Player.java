@@ -27,14 +27,23 @@ public class Player extends Entity {
 
 	@Override
 	public void update(Main game) {
-		if(left){
+		if (left) {
 			facingLeft = true;
 		}
-		if(right){
+		if (right) {
 			facingLeft = false;
 		}
+		if (x > game.scrollX+(Just_Jump.width-game.scrollXPoint)) {
+			game.scrollX += x - (Just_Jump.width-game.scrollXPoint);
+			
+		}
+		
+		if (x < game.scrollX+game.scrollXPoint) {
+			game.scrollX += x- (game.scrollX+game.scrollXPoint);
+			
+		}
 		super.update(game);
-		if(health<=0){
+		if (health <= 0) {
 			game.GameOver();
 		}
 	}

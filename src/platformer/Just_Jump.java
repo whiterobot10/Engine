@@ -9,13 +9,13 @@ import javax.swing.JFrame;
 public class Just_Jump {
 
 	public static Display f = new Display();
-	public static int width = 600;
+	public static int width = 1000;
 	public static int height = 400;
 
 	public static void main(String[] args) {
 		f = new Display();
 		f.setSize(width, height);
-		f.setResizable(false);
+		f.setResizable(true);
 		f.setVisible(true);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setTitle("Platform Game");
