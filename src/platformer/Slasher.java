@@ -40,35 +40,44 @@ public class Slasher extends Entity {
 		if (game.lineOsight((int) x + (width / 2), (int) y + (height / 2), (int) game.PC.x + (game.PC.width / 2),
 				(int) game.PC.y + (game.PC.height / 2))) {
 			xvMax = 18;
-
-			if (game.PC.x < x) {
-				left = true;
-				right = false;
+			if (Math.abs(x - game.PC.x)+Math.abs(y - game.PC.y) < 48 && attack1 == 0) {
+				attack1 = attack1Duration;
+			} else if(attack1<=0){
+				if (game.PC.x < x) {
+					left = true;
+					right = false;
+				}
+				if (game.PC.x > x) {
+					left = false;
+					right = true;
+				}
 			}
-			if (game.PC.x > x) {
-				left = false;
-				right = true;
-			}
 
+			System.out.println("active");
 		} else {
-			xvMax = 10;
+			System.out.println("passive");
+			xvMax = 5;
+			y -= 1;
 			if (facingLeft) {
 				left = true;
 				right = false;
-				x = x - 10;
+				x = x - 2;
 				if (game.clsnCheck(this)) {
+					System.out.println("hi2");
 					facingLeft = false;
 				}
-				x = x + 10;
+				x = x + 2;
 			} else {
 				right = true;
 				left = false;
 
-				x = x + 10;
+				x = x + 2;
 				if (game.clsnCheck(this)) {
+					System.out.println("hi");
 					facingLeft = true;
 				}
-				x = x - 10;
+				x = x - 2;
+				y += 1;
 			}
 		}
 

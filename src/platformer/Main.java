@@ -74,7 +74,7 @@ public class Main extends JPanel implements Runnable {
 				if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 					PC.down = true;
 				}
-				if (e.getKeyCode() == KeyEvent.VK_SPACE&&PC.attack1==0) {
+				if (e.getKeyCode() == KeyEvent.VK_SPACE && PC.attack1 == 0) {
 					PC.attack1 = PC.attack1Duration;
 				}
 			}
@@ -102,15 +102,15 @@ public class Main extends JPanel implements Runnable {
 		PC = new Player(300, 0);
 		boxes = new Box[30];
 		boxes[0] = new Box(0, 350, 600, 400);
-		boxes[1] = new Box(250, 250, 350, 280);
+		boxes[1] = new Box(0, 250, 350, 280);
 		boxes[2] = new Box(0, 0, 50, 400);
 		boxes[3] = new Box(550, 0, 600, 400);
 
 		entities = new ArrayList<Entity>();
 		flashDisplay = new ArrayList<Box>();
 		damageFields = new ArrayList<DamageField>();
-		entities.add(new Slasher(200, 200));
-		//entities.add(new Slasher(400, 200));
+		entities.add(new Slasher(100, 300));
+		// entities.add(new Slasher(400, 200));
 
 		objectDefine = true;
 		repaint();
@@ -132,7 +132,7 @@ public class Main extends JPanel implements Runnable {
 			for (Entity e : entities) {
 				e.draw(g);
 				if (e.iframes % 6 < 3) {
-					
+
 				}
 			}
 			for (Box e : flashDisplay) {
@@ -161,6 +161,10 @@ public class Main extends JPanel implements Runnable {
 			}
 		}
 		return false;
+	}
+	
+	public void GameOver(){
+		System.exit(0);
 	}
 
 	public boolean lineOsight(int x1, int y1, int x2, int y2) {

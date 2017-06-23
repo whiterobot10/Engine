@@ -135,11 +135,11 @@ public class Entity {
 
 		if (left && xv == 0) {
 			xv -= walkspeed;
-			facingLeft = true;
+			
 		}
 		if (right && xv == 0) {
 			xv += walkspeed;
-			facingLeft = false;
+			
 		}
 		if (left) {
 			if ((xv * -1) + walkspeed >= xvMax) {
@@ -204,7 +204,7 @@ public class Entity {
 		} else {
 			attack1 = 0;
 		}
-		System.out.println(attack1);
+		
 	}
 
 	public void takeDamage(Main game) {
