@@ -124,13 +124,15 @@ public class Main extends JPanel implements Runnable {
 	public void paint(Graphics g) {
 		super.paint(g);
 		if (objectDefine) {
+			PC.draw(g);
 			if (PC.iframes % 6 < 3) {
-				PC.draw(g);
+
 			}
 
 			for (Entity e : entities) {
+				e.draw(g);
 				if (e.iframes % 6 < 3) {
-					e.draw(g);
+					
 				}
 			}
 			for (Box e : flashDisplay) {
