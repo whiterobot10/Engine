@@ -30,19 +30,28 @@ public class Main extends JPanel implements Runnable {
 		return dimg;
 	}
 
+	// setup
+
 	private static final long serialVersionUID = -4720310464752288420L;
-	public Box[] boxes;
+	public ArrayList<Box> boxes;
+	public ArrayList<Box> instaKill;
 	public ArrayList<Entity> entities;
+	public ArrayList<Entity> newEntities;
 	public ArrayList<DamageField> damageFields;
 	public ArrayList<Box> flashDisplay;
 	public Player PC;
-	BufferedImage Image1 = null;
 
 	public int fps = 100;
+	public int pcStartX = 100;
+	public int pcStartY = 168;
 	public double movementSpeed = 1;
 	public double movementFrame = 1;
 	public double scrollX = 0;
+	public double scrollY = -175;
 	public double scrollXPoint = 200;
+	
+	public boolean door1 = false;
+	public boolean door2 = false;
 
 	public boolean objectDefine = false;
 	public boolean running = true;
@@ -50,16 +59,15 @@ public class Main extends JPanel implements Runnable {
 	public Thread game;
 
 	public Main(Display f) {
-		setBackground(Color.blue);
-		try {
-			Image1 = ImageIO.read(new File("glory.jpg"));
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+		setBackground(Color.LIGHT_GRAY);
+
 		defineObjects();
 
 		game = new Thread(this);
 		game.start();
+
+		// Key input
+
 		f.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
@@ -77,8 +85,11 @@ public class Main extends JPanel implements Runnable {
 				if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 					PC.down = true;
 				}
-				if (e.getKeyCode() == KeyEvent.VK_SPACE && PC.attack1 == 0) {
+				if (e.getKeyCode() == KeyEvent.VK_Z && PC.attack1 == 0 && !(PC.space)) {
 					PC.attack1 = PC.attack1Duration;
+				}
+				if (e.getKeyCode() == KeyEvent.VK_X && PC.attack2Delay == 0) {
+					PC.shoot = true;
 				}
 			}
 
@@ -93,7 +104,7 @@ public class Main extends JPanel implements Runnable {
 					PC.up = false;
 				}
 				if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-					PC.down = true;
+					PC.down = false;
 				}
 			}
 
@@ -101,19 +112,65 @@ public class Main extends JPanel implements Runnable {
 
 	}
 
+	// defining objects
+
 	void defineObjects() {
-		PC = new Player(300, 0);
-		boxes = new Box[30];
-		boxes[0] = new Box(0, 350, 900, 400);
-		boxes[1] = new Box(0, 250, 350, 280);
-		boxes[2] = new Box(0, 0, 50, 400);
-		boxes[3] = new Box(850, 0, 900, 400);
+		door1=false;
+		door2=false;
+		PC = new Player(pcStartX, pcStartY);
+		scrollX = pcStartX;
+		scrollY = -175;
+		boxes = new ArrayList<Box>();
+		instaKill = new ArrayList<Box>();
+		boxes.add(new Box(0, 350, 2500, 400));
+		boxes.add(new Box(0, -175, 10000, 0));
+		boxes.add(new Box(0, 200, 350, 250));
+		boxes.add(new Box(-150, -175, 50, 400));
+		boxes.add(new Box(850, 300, 900, 400));
+		boxes.add(new Box(850, 0, 900, 200));
+		boxes.add(new Box(1350, 200, 1400, 400));
+		boxes.add(new Box(1050, 250, 1200, 300));
+		boxes.add(new Box(1650, 0, 1700, 300));
+		boxes.add(new Box(2250, 0, 2300, 300));
+		instaKill.add(new Box(2500, 375, 2700, 400));
+		boxes.add(new Box(2700, 350, 2950, 400));
+		boxes.add(new Box(3000,200,3025,400));
+		boxes.add(new Box(2800,250,2850,400));
+		instaKill.add(new Box(3000,200,3025,400));
+		instaKill.add(new Box(2950,375,3675,400));
+		boxes.add(new Box(2950,150,3075,200));
+		boxes.add(new Box(3650,0,3700,100));
+		boxes.add(new Box(3675,150,3800,200));
+		boxes.add(new Box(3050,0,3100,100));
+
+		
 
 		entities = new ArrayList<Entity>();
+		newEntities = new ArrayList<Entity>();
 		flashDisplay = new ArrayList<Box>();
 		damageFields = new ArrayList<DamageField>();
+		entities.add(new CheckPoint(100, 168));
+		entities.add(new CheckPoint(2400, 318));
 		entities.add(new Slasher(100, 300));
-		// entities.add(new Slasher(400, 200));
+		entities.add(new Slasher(1000, 300));
+		entities.add(new Gunner(1050, 300));
+		entities.add(new WallTurret(1750, 50));
+		entities.add(new WallTurret(2175, 50));
+		entities.add(new Blocade(3075, 150, 45));
+		entities.add(new WallTurret(3325, 300,true));
+		entities.add(new Blocade(3125, 150, 45));
+		entities.add(new Blocade(3175, 150, 45));
+		entities.add(new Blocade(3225, 150, 45));
+		entities.add(new Blocade(3275, 150, 45));
+		entities.add(new Blocade(3325, 150, 45));
+		entities.add(new Blocade(3375, 150, 45));
+		entities.add(new Blocade(3425, 150, 45));
+		entities.add(new Blocade(3475, 150, 45));
+		entities.add(new Blocade(3525, 150, 45));
+		entities.add(new Blocade(3575, 150, 45));
+		entities.add(new Blocade(3625, 150, 45));
+
+		
 
 		objectDefine = true;
 		repaint();
@@ -124,68 +181,158 @@ public class Main extends JPanel implements Runnable {
 
 	}
 
+	// drawing
+
 	public void paint(Graphics g) {
+
 		super.paint(g);
 		AffineTransform Trans = new AffineTransform();
-		Trans.translate(scrollX*-1, 0);
-		Graphics2D g2d = (Graphics2D)g;
+		Trans.translate(scrollX * -1, scrollY * -1);
+		Graphics2D g2d = (Graphics2D) g;
 		g2d.transform(Trans);
 		if (objectDefine) {
-			PC.draw(g);
+			PC.draw(g, this);
 			if (PC.iframes % 6 < 3) {
 
 			}
 
 			for (Entity e : entities) {
-				e.draw(g);
+				e.draw(g, this);
 				if (e.iframes % 6 < 3) {
 
 				}
 			}
 			for (Box e : flashDisplay) {
-				e.draw(g);
+				e.draw(g, 5);
 			}
-			for (int i = 0; i < boxes.length; i++) {
-				if (boxes[i] == null) {
-					continue;
-				} else {
-					boxes[i].draw(g);
-				}
+			for (Box e : flashDisplay) {
+				e.draw(g, 4);
+			}
+			for (Box e : flashDisplay) {
+				e.draw(g, 3);
+			}
+			for (Box e : flashDisplay) {
+				e.draw(g, 2);
+			}
+			for (Box e : flashDisplay) {
+				e.draw(g, 1);
+			}
+			for (Box e : boxes) {
+
+				e.draw(g);
+
+			}
+			for (Box e : instaKill) {
+
+				e.draw(g, Color.BLACK);
+
 			}
 			flashDisplay.clear();
 
 		}
-	
+
 	}
+//	Exception in thread "AWT-EventQueue-0" java.util.ConcurrentModificationException
+//	at java.util.ArrayList$Itr.checkForComodification(Unknown Source)
+//	at java.util.ArrayList$Itr.next(Unknown Source)
+//	at platformer.Main.paint(Main.java:201)
+//	at javax.swing.JComponent.paintToOffscreen(Unknown Source)
+//	at javax.swing.RepaintManager$PaintManager.paintDoubleBuffered(Unknown Source)
+//	at javax.swing.RepaintManager$PaintManager.paint(Unknown Source)
+//	at javax.swing.RepaintManager.paint(Unknown Source)
+//	at javax.swing.JComponent._paintImmediately(Unknown Source)
+//	at javax.swing.JComponent.paintImmediately(Unknown Source)
+//	at javax.swing.RepaintManager$4.run(Unknown Source)
+//	at javax.swing.RepaintManager$4.run(Unknown Source)
+//	at java.security.AccessController.doPrivileged(Native Method)
+//	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+//	at javax.swing.RepaintManager.paintDirtyRegions(Unknown Source)
+//	at javax.swing.RepaintManager.paintDirtyRegions(Unknown Source)
+//	at javax.swing.RepaintManager.prePaintDirtyRegions(Unknown Source)
+//	at javax.swing.RepaintManager.access$1200(Unknown Source)
+//	at javax.swing.RepaintManager$ProcessingRunnable.run(Unknown Source)
+//	at java.awt.event.InvocationEvent.dispatch(Unknown Source)
+//	at java.awt.EventQueue.dispatchEventImpl(Unknown Source)
+//	at java.awt.EventQueue.access$500(Unknown Source)
+//	at java.awt.EventQueue$3.run(Unknown Source)
+//	at java.awt.EventQueue$3.run(Unknown Source)
+//	at java.security.AccessController.doPrivileged(Native Method)
+//	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+//	at java.awt.EventQueue.dispatchEvent(Unknown Source)
+//	at java.awt.EventDispatchThread.pumpOneEventForFilters(Unknown Source)
+//	at java.awt.EventDispatchThread.pumpEventsForFilter(Unknown Source)
+//	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
+//	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+//	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+//	at java.awt.EventDispatchThread.run(Unknown Source)
+
+
+	public void GameOver() {
+		boxes.clear();
+		instaKill.clear();
+		entities.clear();
+		newEntities.clear();
+		defineObjects();
+
+	}
+
+	// check collision
 
 	public boolean clsnCheck(Rectangle rect) {
 
-		for (int i = 0; i < boxes.length; i++) {
-			if (boxes[i] == null) {
-				continue;
-			} else {
-				if (boxes[i].collides(rect)) {
-					return true;
-				}
+		for (Box e : boxes) {
+
+			if (e.collides(rect)) {
+				return true;
 			}
+
+		}
+
+		return false;
+	}
+
+	public boolean clsnCheck(Rectangle rect, ArrayList<Box> list) {
+
+		for (Box e : list) {
+
+			if (e.collides(rect)) {
+				return true;
+			}
+
+		}
+
+		return false;
+	}
+
+	public boolean clsnCheck(Entity entity, ArrayList<Entity> list) {
+
+		for (Entity e : list) {
+
+			if (e.collides(entity.getRect()) && e.mOB && !(e == entity)) {
+				return true;
+			}
+			if (entity.collides(PC.getRect()) && !(entity == PC) && list == entities) {
+				return true;
+			}
+
 		}
 		return false;
 	}
 
-	public void GameOver() {
-		System.exit(0);
+	public boolean clsnCheck(Rectangle rect, Entity e) {
+		if (e.collides(rect) && e.mOB) {
+			return true;
+		}
+		return false;
 	}
 
 	public boolean lineOsight(int x1, int y1, int x2, int y2) {
 		Line2D line = new Line2D.Double(x1, y1, x2, y2);
 
-		for (int i = 0; i < boxes.length; i++) {
-			if (boxes[i] == null) {
-				continue;
-			} else {
-				if (boxes[i].collides(line)) {
-					return false;
-				}
+		for (Box e : boxes) {
+
+			if (e.collides(line)) {
+				return false;
 			}
 
 		}
@@ -195,17 +342,17 @@ public class Main extends JPanel implements Runnable {
 
 	public boolean clsnCheck(Entity entity) {
 
-		for (int i = 0; i < boxes.length; i++) {
-			if (boxes[i] == null) {
-				continue;
-			} else {
-				if (boxes[i].collides(entity.getRect())) {
-					return true;
-				}
+		for (Box e : boxes) {
+
+			if (e.collides(entity.getRect())) {
+				return true;
 			}
+
 		}
 		return false;
 	}
+
+	// processing
 
 	@Override
 	public void run() {
@@ -216,7 +363,6 @@ public class Main extends JPanel implements Runnable {
 				for (Entity e : entities) {
 					e.update(this);
 				}
-				damageFields.clear();
 				PC.makeDamage(this);
 				for (Entity e : entities) {
 					e.makeDamage(this);
@@ -225,12 +371,18 @@ public class Main extends JPanel implements Runnable {
 				for (Entity e : entities) {
 					e.takeDamage(this);
 				}
+				damageFields.clear();
 				for (int i = 0; i < entities.size(); i++) {
 					if (entities.get(i).needsRemoval) {
 						entities.remove(i);
 						i--;
 					}
 				}
+				for (Entity e : newEntities) {
+					entities.add(e);
+				}
+				newEntities.clear();
+
 				repaint();
 				movementFrame = -1;
 
@@ -244,6 +396,8 @@ public class Main extends JPanel implements Runnable {
 		}
 
 	}
+
+	// fpssettler
 
 	public void fpsSettler() {
 
