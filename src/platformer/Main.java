@@ -10,11 +10,8 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class Main extends JPanel implements Runnable {
@@ -33,6 +30,28 @@ public class Main extends JPanel implements Runnable {
 	// setup
 
 	private static final long serialVersionUID = -4720310464752288420L;
+
+	//
+	//
+	//
+	//debug
+	//
+	//
+	//
+	
+	
+	public boolean Show_Hit_Boxes = true;
+	public boolean Show_Damage_Fields = false;
+
+	//
+	//
+	//
+	//
+	//
+	
+	
+	
+	
 	public ArrayList<Box> boxes;
 	public ArrayList<Box> instaKill;
 	public ArrayList<Entity> entities;
@@ -43,13 +62,13 @@ public class Main extends JPanel implements Runnable {
 
 	public int fps = 100;
 	public int pcStartX = 100;
-	public int pcStartY = 168;
+	public int pcStartY = 185;
 	public double movementSpeed = 1;
 	public double movementFrame = 1;
 	public double scrollX = 0;
 	public double scrollY = -175;
 	public double scrollXPoint = 200;
-	
+
 	public boolean door1 = false;
 	public boolean door2 = false;
 
@@ -115,9 +134,9 @@ public class Main extends JPanel implements Runnable {
 	// defining objects
 
 	void defineObjects() {
-		door1=false;
-		door2=false;
-		PC = new Player(pcStartX, pcStartY);
+		door1 = false;
+		door2 = false;
+		PC = new Player(pcStartX + 50, pcStartY);
 		scrollX = pcStartX;
 		scrollY = -175;
 		boxes = new ArrayList<Box>();
@@ -134,50 +153,54 @@ public class Main extends JPanel implements Runnable {
 		boxes.add(new Box(2250, 0, 2300, 300));
 		instaKill.add(new Box(2500, 375, 2700, 400));
 		boxes.add(new Box(2700, 350, 2950, 400));
-		boxes.add(new Box(3000,200,3025,400));
-		boxes.add(new Box(2800,250,2850,400));
-		instaKill.add(new Box(3000,200,3025,400));
-		instaKill.add(new Box(2950,375,3675,400));
-		boxes.add(new Box(2950,150,3075,200));
-		boxes.add(new Box(3650,0,3700,100));
-		boxes.add(new Box(3675,150,3800,200));
-		boxes.add(new Box(3050,0,3100,100));
-
-		
+		boxes.add(new Box(3000, 200, 3025, 400));
+		boxes.add(new Box(2800, 250, 2850, 400));
+		instaKill.add(new Box(3000, 200, 3025, 400));
+		instaKill.add(new Box(2950, 375, 3675, 400));
+		boxes.add(new Box(2950, 150, 3075, 200));
+		boxes.add(new Box(3650, 0, 3700, 100));
+		boxes.add(new Box(3675, 150, 3800, 200));
+		boxes.add(new Box(3050, 0, 3100, 100));
 
 		entities = new ArrayList<Entity>();
 		newEntities = new ArrayList<Entity>();
 		flashDisplay = new ArrayList<Box>();
 		damageFields = new ArrayList<DamageField>();
-		entities.add(new CheckPoint(100, 168));
-		entities.add(new CheckPoint(2400, 318));
+		entities.add(new CheckPoint(100, 185));
+		entities.add(new CheckPoint(2400, 335));
 		entities.add(new Slasher(100, 300));
-		entities.add(new Slasher(1000, 300));
-		entities.add(new Gunner(1050, 300));
+		entities.add(new Gunner(1000, 300));
 		entities.add(new WallTurret(1750, 50));
 		entities.add(new WallTurret(2175, 50));
-		entities.add(new Blocade(3075, 150, 45));
-		entities.add(new WallTurret(3325, 300,true));
-		entities.add(new Blocade(3125, 150, 45));
-		entities.add(new Blocade(3175, 150, 45));
-		entities.add(new Blocade(3225, 150, 45));
-		entities.add(new Blocade(3275, 150, 45));
-		entities.add(new Blocade(3325, 150, 45));
-		entities.add(new Blocade(3375, 150, 45));
-		entities.add(new Blocade(3425, 150, 45));
-		entities.add(new Blocade(3475, 150, 45));
-		entities.add(new Blocade(3525, 150, 45));
-		entities.add(new Blocade(3575, 150, 45));
-		entities.add(new Blocade(3625, 150, 45));
-
-		
+		entities.add(new WallTurret(3325, 300, true));
+		entities.add(new Blocade(3100, 175, 30));
+		entities.add(new Blocade(3150, 175, 30));
+		entities.add(new Blocade(3200, 175, 30));
+		entities.add(new Blocade(3250, 175, 30));
+		entities.add(new Blocade(3300, 175, 30));
+		entities.add(new Blocade(3350, 175, 30));
+		entities.add(new Blocade(3400, 175, 30));
+		entities.add(new Blocade(3450, 175, 30));
+		entities.add(new Blocade(3500, 175, 30));
+		entities.add(new Blocade(3550, 175, 30));
+		entities.add(new Blocade(3600, 175, 30));
+		entities.add(new Blocade(3650, 175, 30));
 
 		objectDefine = true;
 		repaint();
 	}
 
-	public void makeEntity(int xstart, int ystart) {
-		entities.add(new Entity(xstart, ystart));
+	public void events() {
+		if (door1 == false && PC.x >= 1750 && PC.x <= 1950) {
+			boxes.add(new Box(1650, 300, 1700, 400));
+			entities.add(new Blocade(2275, 325, 100));
+			door1 = true;
+		}
+		if (door2 == false && PC.x >= 3150 && PC.x <= 3350) {
+			boxes.add(new Box(3050, 100, 3100, 150));
+			entities.add(new Blocade(3675, 125, 100));
+			door2 = true;
+		}
 
 	}
 
@@ -191,6 +214,7 @@ public class Main extends JPanel implements Runnable {
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.transform(Trans);
 		if (objectDefine) {
+
 			PC.draw(g, this);
 			if (PC.iframes % 6 < 3) {
 
@@ -200,6 +224,11 @@ public class Main extends JPanel implements Runnable {
 				e.draw(g, this);
 				if (e.iframes % 6 < 3) {
 
+				}
+			}
+			if (Show_Damage_Fields) {
+				for (Box e : damageFields) {
+					e.draw(g, Color.RED);
 				}
 			}
 			for (Box e : flashDisplay) {
@@ -223,49 +252,53 @@ public class Main extends JPanel implements Runnable {
 
 			}
 			for (Box e : instaKill) {
-
 				e.draw(g, Color.BLACK);
-
 			}
+
 			flashDisplay.clear();
 
 		}
 
 	}
-//	Exception in thread "AWT-EventQueue-0" java.util.ConcurrentModificationException
-//	at java.util.ArrayList$Itr.checkForComodification(Unknown Source)
-//	at java.util.ArrayList$Itr.next(Unknown Source)
-//	at platformer.Main.paint(Main.java:201)
-//	at javax.swing.JComponent.paintToOffscreen(Unknown Source)
-//	at javax.swing.RepaintManager$PaintManager.paintDoubleBuffered(Unknown Source)
-//	at javax.swing.RepaintManager$PaintManager.paint(Unknown Source)
-//	at javax.swing.RepaintManager.paint(Unknown Source)
-//	at javax.swing.JComponent._paintImmediately(Unknown Source)
-//	at javax.swing.JComponent.paintImmediately(Unknown Source)
-//	at javax.swing.RepaintManager$4.run(Unknown Source)
-//	at javax.swing.RepaintManager$4.run(Unknown Source)
-//	at java.security.AccessController.doPrivileged(Native Method)
-//	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
-//	at javax.swing.RepaintManager.paintDirtyRegions(Unknown Source)
-//	at javax.swing.RepaintManager.paintDirtyRegions(Unknown Source)
-//	at javax.swing.RepaintManager.prePaintDirtyRegions(Unknown Source)
-//	at javax.swing.RepaintManager.access$1200(Unknown Source)
-//	at javax.swing.RepaintManager$ProcessingRunnable.run(Unknown Source)
-//	at java.awt.event.InvocationEvent.dispatch(Unknown Source)
-//	at java.awt.EventQueue.dispatchEventImpl(Unknown Source)
-//	at java.awt.EventQueue.access$500(Unknown Source)
-//	at java.awt.EventQueue$3.run(Unknown Source)
-//	at java.awt.EventQueue$3.run(Unknown Source)
-//	at java.security.AccessController.doPrivileged(Native Method)
-//	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
-//	at java.awt.EventQueue.dispatchEvent(Unknown Source)
-//	at java.awt.EventDispatchThread.pumpOneEventForFilters(Unknown Source)
-//	at java.awt.EventDispatchThread.pumpEventsForFilter(Unknown Source)
-//	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
-//	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
-//	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
-//	at java.awt.EventDispatchThread.run(Unknown Source)
-
+	// Exception in thread "AWT-EventQueue-0"
+	// java.util.ConcurrentModificationException
+	// at java.util.ArrayList$Itr.checkForComodification(Unknown Source)
+	// at java.util.ArrayList$Itr.next(Unknown Source)
+	// at platformer.Main.paint(Main.java:201)
+	// at javax.swing.JComponent.paintToOffscreen(Unknown Source)
+	// at javax.swing.RepaintManager$PaintManager.paintDoubleBuffered(Unknown
+	// Source)
+	// at javax.swing.RepaintManager$PaintManager.paint(Unknown Source)
+	// at javax.swing.RepaintManager.paint(Unknown Source)
+	// at javax.swing.JComponent._paintImmediately(Unknown Source)
+	// at javax.swing.JComponent.paintImmediately(Unknown Source)
+	// at javax.swing.RepaintManager$4.run(Unknown Source)
+	// at javax.swing.RepaintManager$4.run(Unknown Source)
+	// at java.security.AccessController.doPrivileged(Native Method)
+	// at
+	// java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown
+	// Source)
+	// at javax.swing.RepaintManager.paintDirtyRegions(Unknown Source)
+	// at javax.swing.RepaintManager.paintDirtyRegions(Unknown Source)
+	// at javax.swing.RepaintManager.prePaintDirtyRegions(Unknown Source)
+	// at javax.swing.RepaintManager.access$1200(Unknown Source)
+	// at javax.swing.RepaintManager$ProcessingRunnable.run(Unknown Source)
+	// at java.awt.event.InvocationEvent.dispatch(Unknown Source)
+	// at java.awt.EventQueue.dispatchEventImpl(Unknown Source)
+	// at java.awt.EventQueue.access$500(Unknown Source)
+	// at java.awt.EventQueue$3.run(Unknown Source)
+	// at java.awt.EventQueue$3.run(Unknown Source)
+	// at java.security.AccessController.doPrivileged(Native Method)
+	// at
+	// java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown
+	// Source)
+	// at java.awt.EventQueue.dispatchEvent(Unknown Source)
+	// at java.awt.EventDispatchThread.pumpOneEventForFilters(Unknown Source)
+	// at java.awt.EventDispatchThread.pumpEventsForFilter(Unknown Source)
+	// at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
+	// at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	// at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	// at java.awt.EventDispatchThread.run(Unknown Source)
 
 	public void GameOver() {
 		boxes.clear();
@@ -363,6 +396,8 @@ public class Main extends JPanel implements Runnable {
 				for (Entity e : entities) {
 					e.update(this);
 				}
+
+				damageFields.clear();
 				PC.makeDamage(this);
 				for (Entity e : entities) {
 					e.makeDamage(this);
@@ -371,13 +406,16 @@ public class Main extends JPanel implements Runnable {
 				for (Entity e : entities) {
 					e.takeDamage(this);
 				}
-				damageFields.clear();
+
+				events();
+
 				for (int i = 0; i < entities.size(); i++) {
 					if (entities.get(i).needsRemoval) {
 						entities.remove(i);
 						i--;
 					}
 				}
+
 				for (Entity e : newEntities) {
 					entities.add(e);
 				}

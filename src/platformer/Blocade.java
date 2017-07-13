@@ -1,6 +1,5 @@
 package platformer;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
@@ -8,7 +7,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Blocade extends Entity {
-	int maxHealth = 0;
 	int phase = 0;
 
 	public Blocade(double xstart, double ystart, int setHealth) {
@@ -17,6 +15,7 @@ public class Blocade extends Entity {
 		health = setHealth;
 		width = 50;
 		height = 50;
+		canBeRemoved = true;
 		try {
 			spriteImage = Main.resize(ImageIO.read(new File("wall.png")), 250, 50);
 		} catch (IOException e1) {
@@ -45,7 +44,7 @@ public class Blocade extends Entity {
 	// make damage textures
 	@Override
 	public void draw(Graphics g, Main game) {
-		game.flashDisplay.add(new Box((int) x, (int) y, (int) x + width, (int) y + height, spriteImage, phase *50, 0,4));
+		game.flashDisplay.add(new Box((int) x-(width/2), (int) y-(height/2), (int) x + (width/2), (int) y + (height/2), spriteImage, phase *50, 0,4));
 	}
 
 }

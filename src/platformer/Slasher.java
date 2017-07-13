@@ -1,18 +1,14 @@
 package platformer;
 
-import java.awt.Color;
-import java.awt.Graphics;
-
 public class Slasher extends Entity {
 
 	public Slasher(double xstart, double ystart) {
 		super(xstart, ystart);
-		width = 32;
-		height = 32;
 		walkspeed = 3.5;
 		friction = 3.5;
-		health = 32;
-		maimDamage=5;
+		maxHealth = 20;
+		health = 20;
+		canBeRemoved = true;
 
 	}
 
@@ -47,10 +43,9 @@ public class Slasher extends Entity {
 		// }
 		// System.out.println("test");
 
-		if (game.lineOsight((int) x + (width / 2), (int) y + (height / 2), (int) game.PC.x + (game.PC.width / 2),
-				(int) game.PC.y + (game.PC.height / 2))) {
+		if (game.lineOsight((int) x, (int) y, (int) game.PC.x, (int) game.PC.y)) {
 			xvMax = 12;
-			if (Math.abs(x - game.PC.x) < 48   && Math.abs(y - game.PC.y) <16 && attack1 == 0) {
+			if (Math.abs(x - game.PC.x) < 20   && Math.abs(y - game.PC.y) <16 && attack1 == 0) {
 				attack1 = attack1Duration;
 			} else if(attack1<=0){
 				if (game.PC.x < x) {

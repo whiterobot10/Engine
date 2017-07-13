@@ -2,7 +2,6 @@ package platformer;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -20,17 +19,22 @@ public class Entity {
 	double yv = 0;
 	int width = 0;
 	int height = 0;
+	int imgWidth = 0;
+	int imgHeight = 0;
 	boolean facingLeft = false;
 	int health = 0;
+	int maxHealth = 0;
 	int healTime = 0;
 	int maimAmount = 0;
 	int stamina = 0;
 	int power = 0;
 	int iframes = 0;
+	int attackOffset = 10;
 
 	boolean needsRemoval = false;
 	boolean canTakeDamage = true;
 	boolean mOB = true;
+	boolean canBeRemoved = false;
 
 	public double gravity = 2;
 	public double gravityFloat = 1.5;
@@ -49,14 +53,14 @@ public class Entity {
 
 	int attack1 = 0;
 	int attack1Duration = 5;
-	int attack1Power = 10;
-	int attack2Power = 5;
+	int attack1Power = 5;
+	int attack2Power = 2;
 	int attackKnockBack = 35;
 	double knockBackResist = 0;
 	int attack1Delay = 0;
 	int attack2Delay = 0;
-	double maimDamage = 0;
-	double maimDamage2 = 0;
+	double maimDamage = 3;
+	double maimDamage2 = 1;
 
 	double step = 0;
 
@@ -78,6 +82,7 @@ public class Entity {
 		}
 
 	}
+
 	int fieldWidth = 16;
 	int fieldHeight = 32;
 
@@ -86,12 +91,15 @@ public class Entity {
 	public Entity(double xstart, double ystart) {
 		x = xstart;
 		y = ystart;
-
+		width = 16;
+		height = 32;
+		imgWidth = 32;
+		imgHeight = 32;
 	}
 
 	// preforming physics calculations
 	public boolean collides(Rectangle rect) {
-		Rectangle hold = new Rectangle((int) x, (int) y, width, height);
+		Rectangle hold = new Rectangle(getRect());
 		return hold.intersects(rect);
 
 	}
@@ -156,11 +164,11 @@ public class Entity {
 		}
 		y++;
 		if (game.clsnCheck(getRect(), game.instaKill)) {
-			health=0;
+			health = 0;
 		}
 		y--;
 
-		if (!(left)&&!(right)) {
+		if (!(left) && !(right)) {
 
 			if (xv > friction) {
 				xv -= friction;
@@ -181,21 +189,41 @@ public class Entity {
 	// obtain rectangular hitbox of entity
 
 	public Rectangle getRect() {
-		return new Rectangle((int) x, (int) y, width, height);
+		return new Rectangle((int) x - (width / 2), (int) y - (height / 2), width, height);
 
 	}
 
 	// draw entity
+	public void showHitBox(Graphics g) {
+		g.setColor(Color.RED);
+		g.fillRect((int) x - (imgWidth / 2), (int) y - (imgHeight / 2), imgWidth, imgHeight);
+		g.setColor(Color.ORANGE);
+		g.fillRect((int) x - (width / 2), (int) y - (height / 2), width, height);
+		g.setColor(Color.BLUE);
+		g.fillOval((int) x - 5, (int) y - 5, 10, 10);
+	}
+
 	public void draw(Graphics g, Main game) {
-		game.flashDisplay.add(new Box((int) x, (int) y, (int) x + width, (int) y + height, spriteImage,
-				((int) step) * 32, 0, facingLeft,1));
+		if (game.Show_Hit_Boxes) {
+			showHitBox(g);
+		}
+		game.flashDisplay.add(new Box((int) x - (imgWidth / 2), (int) y - (imgHeight / 2), (int) x + (imgWidth / 2),
+				(int) y + (imgHeight / 2), spriteImage, ((int) step) * 32, 0, facingLeft, 1));
 		if (mOB) {
-			g.setColor(Color.gray);
-			g.fillRect((int) x, (int) y - 10, 32, 5);
-			g.setColor(Color.RED);
-			g.fillRect((int) x, (int) y - 10, health, 5);
-			g.setColor(Color.black);
-			g.fillRect((int) (x + 32) - maimAmount, (int) y - 10, maimAmount, 5);
+			if (health > 0) {
+				g.setColor(Color.gray);
+				g.fillRect((int) x - (maxHealth / 2), (int) y - (imgHeight / 2) - 10, maxHealth, 5);
+				g.setColor(Color.RED);
+				if (this == game.PC) {
+					g.setColor(Color.CYAN);
+				}
+				g.fillRect((int) x - (maxHealth / 2), (int) y - (imgHeight / 2) - 10, health, 5);
+
+				g.setColor(Color.black);
+				g.fillRect((int) (x - (maxHealth / 2)) + maxHealth - maimAmount, (int) y - (imgHeight / 2) - 10,
+						maimAmount, 5);
+			}
+
 		}
 
 	}
@@ -255,16 +283,20 @@ public class Entity {
 		if (attack1 > 0) {
 			if (facingLeft) {
 
-				game.damageFields.add(new DamageField((int) x - 21, (int) y, (int) x - 1, (int) y + fieldHeight,
-						attack1Power, attackKnockBack * -1, -7, maimDamage));
-				game.flashDisplay.add(new Box((int) x - 21, (int) y, (int) x - 1, (int) y + fieldHeight, attack1Image,
-						(attack1Duration - attack1) * fieldWidth, 0, true,1));
+				game.damageFields.add(new DamageField((int) x - (fieldWidth + attackOffset),
+						(int) y - (fieldHeight / 2), (int) x - attackOffset, (int) y + (fieldHeight / 2), attack1Power,
+						attackKnockBack * -1, -7, maimDamage));
+				game.flashDisplay.add(new Box((int) x - (fieldWidth + attackOffset), (int) y - (fieldHeight / 2),
+						(int) x - attackOffset, (int) y + (fieldHeight / 2), attack1Image,
+						(attack1Duration - attack1) * fieldWidth, 0, true, 1));
 			} else {
 
-				game.damageFields.add(new DamageField((int) x + 33, (int) y, (int) x + 53, (int) y + fieldHeight,
-						attack1Power, attackKnockBack, -7, maimDamage));
-				game.flashDisplay.add(new Box((int) x + 33, (int) y, (int) x + 53, (int) y + fieldHeight, attack1Image,
-						(attack1Duration - attack1) * fieldWidth, 0, false,1));
+				game.damageFields.add(new DamageField((int) x + attackOffset, (int) y - (fieldHeight / 2),
+						(int) x + (fieldWidth + attackOffset), (int) y + (fieldHeight / 2), attack1Power,
+						attackKnockBack, -7, maimDamage));
+				game.flashDisplay.add(new Box((int) x + attackOffset, (int) y - (fieldHeight / 2),
+						(int) x + (fieldWidth + width), (int) y + (fieldHeight / 2), attack1Image,
+						(attack1Duration - attack1) * fieldWidth, 0, false, 1));
 
 			}
 			if (attack1 == 1) {
@@ -295,7 +327,7 @@ public class Entity {
 				maimAmount += x.maimDamage;
 				healTime = 0;
 			}
-			if (health <= 0&&canTakeDamage) {
+			if (health <= 0 && canTakeDamage && canBeRemoved) {
 				needsRemoval = true;
 			}
 		}

@@ -1,8 +1,6 @@
 package platformer;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.io.File;
 import java.io.IOException;
 
@@ -83,6 +81,10 @@ public class bullet extends Entity {
 
 	@Override
 	public void update(Main game) {
+		if (type == 1) {
+			xv = xv * 2;
+			yv = yv * 2;
+		}
 		// System.out.println(xSpeed);
 		if (ySpeed > 0) {
 			for (double i = ySpeed; i > 0; i--) {
@@ -125,8 +127,8 @@ public class bullet extends Entity {
 	@Override
 	public void makeDamage(Main game) {
 		if (needsRemoval) {
-			game.damageFields.add(new DamageField((int) x - 3, (int) y - 3, (int) x + width + 3, (int) y + height + 3,
-					damage, 0, 0, maimDamage));
+			game.damageFields.add(new DamageField((int) x - 3 - (width / 2), (int) y - 3 - (height / 2),
+					(int) x + (width / 2) + 3, (int) y + (height / 2) + 3, damage, 0, 0, maimDamage));
 		}
 	}
 
