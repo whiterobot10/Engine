@@ -220,7 +220,7 @@ public class Entity {
 				g.fillRect((int) x - (maxHealth / 2), (int) y - (imgHeight / 2) - 10, health, 5);
 
 				g.setColor(Color.black);
-				g.fillRect((int) (x - (maxHealth / 2)) + maxHealth - maimAmount, (int) y - (imgHeight / 2) - 10,
+				g.fillRect((int) (x - (maxHealth / 2)) + (maxHealth - maimAmount), (int) y - (imgHeight / 2) - 10,
 						maimAmount, 5);
 			}
 

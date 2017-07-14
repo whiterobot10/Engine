@@ -96,10 +96,10 @@ public class Player extends Entity {
 		super.update(game);
 		if (shoot) {
 			if (facingLeft) {
-				game.newEntities.add(new bullet(x - (width+xvMax), y, -32, 0, attack2Power, maimDamage2));
+				game.newEntities.add(new bullet(x - (width+Math.abs(xv)+8), y, -32, 0, attack2Power, maimDamage2));
 
 			} else {
-				game.newEntities.add(new bullet(x + (width+xvMax), y, 32, 0, attack2Power, maimDamage2));
+				game.newEntities.add(new bullet(x + (width+Math.abs(xv)+8), y, 32, 0, attack2Power, maimDamage2));
 
 			}
 			shoot = false;
