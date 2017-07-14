@@ -54,10 +54,10 @@ public class Gunner extends Entity {
 				attack2Delay = 10;
 
 				if (facingLeft) {
-					game.newEntities.add(new bullet(x - (width+xvMax), y, -32, 0, attack2Power, maimDamage2));
+					game.newEntities.add(new bullet(x - (width+xvMax), y-10, -32, 0, attack2Power, maimDamage2));
 
 				} else {
-					game.newEntities.add(new bullet(x + (width+xvMax), y, 32, 0, attack2Power, maimDamage2));
+					game.newEntities.add(new bullet(x + (width+xvMax), y-10, 32, 0, attack2Power, maimDamage2));
 
 				}
 			}

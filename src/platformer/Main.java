@@ -62,7 +62,7 @@ public class Main extends JPanel implements Runnable {
 
 	public int fps = 100;
 	public int pcStartX = 100;
-	public int pcStartY = 185;
+	public int pcStartY = 183;
 	public double movementSpeed = 1;
 	public double movementFrame = 1;
 	public double scrollX = 0;
@@ -166,8 +166,8 @@ public class Main extends JPanel implements Runnable {
 		newEntities = new ArrayList<Entity>();
 		flashDisplay = new ArrayList<Box>();
 		damageFields = new ArrayList<DamageField>();
-		entities.add(new CheckPoint(100, 185));
-		entities.add(new CheckPoint(2400, 335));
+		entities.add(new CheckPoint(100, 183));
+		entities.add(new CheckPoint(2400, 333));
 		entities.add(new Slasher(100, 300));
 		entities.add(new Gunner(1000, 300));
 		entities.add(new WallTurret(1750, 50));
