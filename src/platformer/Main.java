@@ -63,7 +63,7 @@ public class Main extends JPanel implements Runnable {
 	public int fps = 100;
 	public int pcStartX = 100;
 	public int pcStartY = 183;
-	public double movementSpeed = 1;
+	public double movementSpeed = 2;
 	public double movementFrame = 1;
 	public double scrollX = 0;
 	public double scrollY = -175;
