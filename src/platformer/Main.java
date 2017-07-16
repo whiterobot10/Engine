@@ -80,12 +80,12 @@ public class Main extends JPanel implements Runnable {
 	}
 
 	public int fps = 100;
-	public int pcStartX = 100;
-	public int pcStartY = 100;
+	public int pcStartX = 0;
+	public int pcStartY = 0;
 	public double movementSpeed = 2;
 	public double movementFrame = 1;
 	public double scrollX = 0;
-	public double scrollY = -175;
+	public double scrollY = 0;
 	public double scrollXPoint = 200;
 
 	public boolean door1 = false;
@@ -155,55 +155,83 @@ public class Main extends JPanel implements Runnable {
 	void defineObjects() {
 		door1 = false;
 		door2 = false;
+		pcStartX=0;
+		pcStartY=-100;
 		PC = new Player(pcStartX + 50, pcStartY);
 		scrollX = pcStartX;
-		scrollY = -175;
+		scrollY = -500;
 		boxes = new ArrayList<Box>();
 		instaKill = new ArrayList<Box>();
-		boxes.add(new Box(50, 350, 2500, 400));
-		boxes.add(new Box(0, -175, 10000, 0));
-		boxes.add(new Box(0, 200, 350, 250));
-		boxes.add(new Box(-150, -175, 50, 400));
-		boxes.add(new Box(850, 300, 900, 400));
-		boxes.add(new Box(850, 0, 900, 200));
-		boxes.add(new Box(1350, 200, 1400, 400));
-		boxes.add(new Box(1050, 250, 1200, 300, tileSet, 0,150,0));
-		boxes.add(new Box(1650, 0, 1700, 300));
-		boxes.add(new Box(2250, 0, 2300, 300));
-		instaKill.add(new Box(2500, 375, 2700, 400));
-		boxes.add(new Box(2700, 350, 2950, 400));
-		boxes.add(new Box(3000, 200, 3025, 400));
-		boxes.add(new Box(2800, 250, 2850, 400));
-		instaKill.add(new Box(3000, 200, 3025, 400));
-		instaKill.add(new Box(2950, 375, 3675, 400));
-		boxes.add(new Box(2950, 150, 3075, 200));
-		boxes.add(new Box(3650, 0, 3700, 100));
-		boxes.add(new Box(3675, 150, 3800, 200));
-		boxes.add(new Box(3050, 0, 3100, 100));
-
 		entities = new ArrayList<Entity>();
 		newEntities = new ArrayList<Entity>();
 		flashDisplay = new ArrayList<Box>();
 		damageFields = new ArrayList<DamageField>();
-		entities.add(new CheckPoint(100, 183));
-		entities.add(new CheckPoint(2400, 333));
-		entities.add(new Slasher(100, 300));
-		entities.add(new Gunner(1000, 300));
-		entities.add(new WallTurret(1750, 50));
-		entities.add(new WallTurret(2175, 50));
-		entities.add(new WallTurret(3325, 300, true));
-		entities.add(new Blocade(3100, 175, 30));
-		entities.add(new Blocade(3150, 175, 30));
-		entities.add(new Blocade(3200, 175, 30));
-		entities.add(new Blocade(3250, 175, 30));
-		entities.add(new Blocade(3300, 175, 30));
-		entities.add(new Blocade(3350, 175, 30));
-		entities.add(new Blocade(3400, 175, 30));
-		entities.add(new Blocade(3450, 175, 30));
-		entities.add(new Blocade(3500, 175, 30));
-		entities.add(new Blocade(3550, 175, 30));
-		entities.add(new Blocade(3600, 175, 30));
-		entities.add(new Blocade(3650, 175, 30));
+		
+		
+		boxes.add(new Box(0, 0, 200, 100, tileSet, 0,300,0));
+		boxes.add(new Box(200, 0, 300, 100, tileSet, 100,300,0));
+		boxes.add(new Box(300, 0, 400, 100, tileSet, 100,300,0));
+		boxes.add(new Box(400, 0, 500, 100, tileSet, 100,200,0));
+		boxes.add(new Box(400, -100, 500, 0, tileSet, 300,0,0));
+		boxes.add(new Box(500, 0, 700, 100, tileSet, 100,300,0));
+		
+		
+		boxes.add(new Box(900, 0, 1100, 100, tileSet, 0,300,0));
+		boxes.add(new Box(1100, -100, 1200, 0, tileSet, 300,0,0));
+		boxes.add(new Box(1100, 0, 1200, 100, tileSet, 100,200,0));
+		boxes.add(new Box(1200, 0, 1300, 100, tileSet, 100,300,0));
+		entities.add(new Slasher(1250, -50));
+		boxes.add(new Box(1300, 0, 1400, 100, tileSet, 100,300,0));
+		boxes.add(new Box(1400, 0, 1500, 100, tileSet, 100,300,0));
+		boxes.add(new Box(1500, 0, 1600, 100, tileSet, 100,300,0));
+		boxes.add(new Box(1600, 0, 1700, 100, tileSet, 100,300,0));
+		boxes.add(new Box(1700, 0, 1800, 100, tileSet, 100,200,0));
+		boxes.add(new Box(1700, -100, 1800, 0, tileSet, 300,0,0));
+		boxes.add(new Box(1800, 0, 2000, 100, tileSet, 100,300,0));
+		
+		
+		
+//		boxes.add(new Box(50, 350, 2500, 400));
+//		boxes.add(new Box(0, -175, 10000, 0));
+//		boxes.add(new Box(0, 200, 350, 250));
+//		boxes.add(new Box(-150, -175, 50, 400));
+//		boxes.add(new Box(850, 300, 900, 400));
+//		boxes.add(new Box(850, 0, 900, 200));
+//		boxes.add(new Box(1350, 200, 1400, 400));
+//		boxes.add(new Box(1050, 250, 1200, 300, tileSet, 0,150,0));
+//		boxes.add(new Box(1650, 0, 1700, 300));
+//		boxes.add(new Box(2250, 0, 2300, 300));
+//		instaKill.add(new Box(2500, 375, 2700, 400));
+//		boxes.add(new Box(2700, 350, 2950, 400));
+//		boxes.add(new Box(3000, 200, 3025, 400));
+//		boxes.add(new Box(2800, 250, 2850, 400));
+//		instaKill.add(new Box(3000, 200, 3025, 400));
+//		instaKill.add(new Box(2950, 375, 3675, 400));
+//		boxes.add(new Box(2950, 150, 3075, 200));
+//		boxes.add(new Box(3650, 0, 3700, 100));
+//		boxes.add(new Box(3675, 150, 3800, 200));
+//		boxes.add(new Box(3050, 0, 3100, 100));
+
+
+//		entities.add(new CheckPoint(100, 183));
+//		entities.add(new CheckPoint(2400, 333));
+//		entities.add(new Slasher(100, 300));
+//		entities.add(new Gunner(1000, 300));
+//		entities.add(new WallTurret(1750, 50));
+//		entities.add(new WallTurret(2175, 50));
+//		entities.add(new WallTurret(3325, 300, true));
+//		entities.add(new Blocade(3100, 175, 30));
+//		entities.add(new Blocade(3150, 175, 30));
+//		entities.add(new Blocade(3200, 175, 30));
+//		entities.add(new Blocade(3250, 175, 30));
+//		entities.add(new Blocade(3300, 175, 30));
+//		entities.add(new Blocade(3350, 175, 30));
+//		entities.add(new Blocade(3400, 175, 30));
+//		entities.add(new Blocade(3450, 175, 30));
+//		entities.add(new Blocade(3500, 175, 30));
+//		entities.add(new Blocade(3550, 175, 30));
+//		entities.add(new Blocade(3600, 175, 30));
+//		entities.add(new Blocade(3650, 175, 30));
 
 		objectDefine = true;
 		repaint();

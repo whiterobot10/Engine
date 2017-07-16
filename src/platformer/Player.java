@@ -18,8 +18,6 @@ public class Player extends Entity {
 		maxHealth = 20;
 		health = 20;
 		attack1Delay = 10;
-		maimDamage = 5;
-		maimDamage2 = 1;
 
 		try {
 			spriteImage = Main.resize(ImageIO.read(new File("walkCycle.png")), 576, 64);
@@ -43,10 +41,10 @@ public class Player extends Entity {
 		if (down && xv == 0 && yv == 0) {
 			if (healTime == 20) {
 				game.flashDisplay.add(new Box((int) x - (imgWidth / 2), (int) y - (imgHeight / 2), (int) x + (imgWidth / 2),
-						(int) y + (imgHeight / 2), healImage, 64, 0, facingLeft, 1));
+						(int) y + (imgHeight / 2), healImage, 128, 0, facingLeft, 1));
 			} else if (healTime >= 10) {
 				game.flashDisplay.add(new Box((int) x - (imgWidth / 2), (int) y - (imgHeight / 2), (int) x + (imgWidth / 2),
-						(int) y + (imgHeight / 2), healImage, 32, 0, facingLeft, 1));
+						(int) y + (imgHeight / 2), healImage, 64, 0, facingLeft, 1));
 			} else {
 				game.flashDisplay.add(new Box((int) x - (imgWidth / 2), (int) y - (imgHeight / 2), (int) x + (imgWidth / 2),
 						(int) y + (imgHeight / 2), healImage, 0, 0, facingLeft, 1));
@@ -104,7 +102,7 @@ public class Player extends Entity {
 			}
 			shoot = false;
 		}
-		if (health <= 0) {
+		if (health <= 0||y>5000) {
 			game.GameOver();
 		}
 		if (xv != 0) {

@@ -36,10 +36,10 @@ public class Entity {
 	boolean mOB = true;
 	boolean canBeRemoved = false;
 
-	public double gravity = 2;
+	public double gravity = 3;
 	public double gravityFloat = 1.5;
-	public double jumpStrenght = 18;
-	public double walkspeed = 5;
+	public double jumpStrenght = 21;
+	public double walkspeed = 6;
 	public double xvMax = 18;
 	public double friction = 5;
 	public double airFriction = 3;
@@ -327,7 +327,7 @@ public class Entity {
 				maimAmount += x.maimDamage;
 				healTime = 0;
 			}
-			if (health <= 0 && canTakeDamage && canBeRemoved) {
+			if ((health <= 0 && canTakeDamage)||(y > 1000) && canBeRemoved) {
 				needsRemoval = true;
 			}
 		}

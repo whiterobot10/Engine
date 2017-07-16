@@ -45,7 +45,7 @@ public class Slasher extends Entity {
 
 		if (game.lineOsight((int) x, (int) y, (int) game.PC.x, (int) game.PC.y)) {
 			xvMax = 12;
-			if (Math.abs(x - game.PC.x) < 20   && Math.abs(y - game.PC.y) <16 && attack1 == 0) {
+			if (Math.abs(x - game.PC.x) < 40   && Math.abs(y - game.PC.y) <32 && attack1 == 0) {
 				attack1 = attack1Duration;
 			} else if(attack1<=0){
 				if (game.PC.x < x) {
