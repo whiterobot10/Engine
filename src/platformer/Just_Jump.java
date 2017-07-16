@@ -15,10 +15,10 @@ public class Just_Jump {
 	public static void main(String[] args) {
 		f = new Display();
 		f.setSize(width, height);
-		f.setResizable(false);
+		f.setResizable(true);
 		f.setVisible(true);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setTitle("Platform Game");
+		f.setTitle("...");
 		f.setLocationRelativeTo(null);
 	}
 

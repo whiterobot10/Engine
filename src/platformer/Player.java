@@ -1,6 +1,8 @@
 package platformer;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -74,13 +76,17 @@ public class Player extends Entity {
 		if (right) {
 			facingLeft = false;
 		}
-
-		while (x > game.scrollX + (Just_Jump.width - game.scrollXPoint)) {
+		
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		
+		double scrollXAmount = screenSize.width/5;
+		
+		while (x > game.scrollX + (screenSize.width - scrollXAmount)) {
 			game.scrollX += 1;
 		}
 
-		while (x < game.scrollX + game.scrollXPoint) {
-			game.scrollX += x - (game.scrollX + game.scrollXPoint);
+		while (x < game.scrollX + scrollXAmount) {
+			game.scrollX += x - (game.scrollX + scrollXAmount);
 
 		}
 		if (attack2Delay > 0) {

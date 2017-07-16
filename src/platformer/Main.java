@@ -70,7 +70,7 @@ public class Main extends JPanel implements Runnable {
 	{
 
 		try {
-			tileSet = Main.resize(ImageIO.read(new File("TilesetAlpha.png")), 700, 500);
+			tileSet = Main.resize(ImageIO.read(new File("TilesetAlpha.png")), 700, 700);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -86,7 +86,7 @@ public class Main extends JPanel implements Runnable {
 	public double movementFrame = 1;
 	public double scrollX = 0;
 	public double scrollY = 0;
-	public double scrollXPoint = 200;
+	
 
 	public boolean door1 = false;
 	public boolean door2 = false;
@@ -129,6 +129,8 @@ public class Main extends JPanel implements Runnable {
 				if (e.getKeyCode() == KeyEvent.VK_X && PC.attack2Delay == 0) {
 					PC.shoot = true;
 				}
+
+				
 			}
 
 			public void keyReleased(KeyEvent e) {
@@ -171,21 +173,21 @@ public class Main extends JPanel implements Runnable {
 		boxes.add(new Box(0, 0, 200, 100, tileSet, 0,300,0));
 		boxes.add(new Box(200, 0, 300, 100, tileSet, 100,300,0));
 		boxes.add(new Box(300, 0, 400, 100, tileSet, 100,300,0));
-		boxes.add(new Box(400, 0, 500, 100, tileSet, 100,200,0));
+		boxes.add(new Box(400, 0, 500, 100, tileSet, 100,600,0));
 		boxes.add(new Box(400, -100, 500, 0, tileSet, 300,0,0));
 		boxes.add(new Box(500, 0, 700, 100, tileSet, 100,300,0));
 		
 		
 		boxes.add(new Box(900, 0, 1100, 100, tileSet, 0,300,0));
 		boxes.add(new Box(1100, -100, 1200, 0, tileSet, 300,0,0));
-		boxes.add(new Box(1100, 0, 1200, 100, tileSet, 100,200,0));
+		boxes.add(new Box(1100, 0, 1200, 100, tileSet, 100,600,0));
 		boxes.add(new Box(1200, 0, 1300, 100, tileSet, 100,300,0));
 		entities.add(new Slasher(1250, -50));
 		boxes.add(new Box(1300, 0, 1400, 100, tileSet, 100,300,0));
 		boxes.add(new Box(1400, 0, 1500, 100, tileSet, 100,300,0));
 		boxes.add(new Box(1500, 0, 1600, 100, tileSet, 100,300,0));
 		boxes.add(new Box(1600, 0, 1700, 100, tileSet, 100,300,0));
-		boxes.add(new Box(1700, 0, 1800, 100, tileSet, 100,200,0));
+		boxes.add(new Box(1700, 0, 1800, 100, tileSet, 100,600,0));
 		boxes.add(new Box(1700, -100, 1800, 0, tileSet, 300,0,0));
 		boxes.add(new Box(1800, 0, 2000, 100, tileSet, 100,300,0));
 		
