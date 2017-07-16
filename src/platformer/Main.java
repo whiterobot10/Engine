@@ -70,7 +70,7 @@ public class Main extends JPanel implements Runnable {
 	{
 
 		try {
-			tileSet = Main.resize(ImageIO.read(new File("TileSetPlaceholder.png")), 400, 400);
+			tileSet = Main.resize(ImageIO.read(new File("TilesetAlpha.png")), 700, 500);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
