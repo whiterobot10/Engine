@@ -29,7 +29,7 @@ public class Entity {
 	int stamina = 0;
 	int power = 0;
 	int iframes = 0;
-	int attackOffset = 10;
+	int attackOffset = 30;
 
 	boolean needsRemoval = false;
 	boolean canTakeDamage = true;
@@ -70,31 +70,31 @@ public class Entity {
 	{
 
 		try {
-			attack1Image = Main.resize(ImageIO.read(new File("slashAttack.png")), 98, 32);
+			attack1Image = Main.resize(ImageIO.read(new File("slashAttack.png")), 194, 64);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 
 		try {
-			spriteImage = Main.resize(ImageIO.read(new File("enemyWalkCycle.png")), 288, 32);
+			spriteImage = Main.resize(ImageIO.read(new File("enemyWalkCycle.png")), 576, 64);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 
 	}
 
-	int fieldWidth = 16;
-	int fieldHeight = 32;
+	int fieldWidth = 32;
+	int fieldHeight = 64;
 
 	// making entity
 
 	public Entity(double xstart, double ystart) {
 		x = xstart;
 		y = ystart;
-		width = 16;
-		height = 32;
-		imgWidth = 32;
-		imgHeight = 32;
+		width = 32;
+		height = 64;
+		imgWidth = 64;
+		imgHeight = 64;
 	}
 
 	// preforming physics calculations
@@ -208,7 +208,7 @@ public class Entity {
 			showHitBox(g);
 		}
 		game.flashDisplay.add(new Box((int) x - (imgWidth / 2), (int) y - (imgHeight / 2), (int) x + (imgWidth / 2),
-				(int) y + (imgHeight / 2), spriteImage, ((int) step) * 32, 0, facingLeft, 1));
+				(int) y + (imgHeight / 2), spriteImage, ((int) step) * imgWidth, 0, facingLeft, 1));
 		if (mOB) {
 			if (health > 0) {
 				g.setColor(Color.gray);

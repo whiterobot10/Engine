@@ -22,12 +22,12 @@ public class Player extends Entity {
 		maimDamage2 = 1;
 
 		try {
-			spriteImage = Main.resize(ImageIO.read(new File("walkCycle.png")), 288, 32);
+			spriteImage = Main.resize(ImageIO.read(new File("walkCycle.png")), 576, 64);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 		try {
-			healImage = Main.resize(ImageIO.read(new File("healOverlay.png")), 96, 32);
+			healImage = Main.resize(ImageIO.read(new File("healOverlay.png")), 192, 64);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}

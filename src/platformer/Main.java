@@ -10,8 +10,11 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class Main extends JPanel implements Runnable {
@@ -59,10 +62,26 @@ public class Main extends JPanel implements Runnable {
 	public ArrayList<DamageField> damageFields;
 	public ArrayList<Box> flashDisplay;
 	public Player PC;
+	
+	
+	BufferedImage tileSet = null;
+
+
+	{
+
+		try {
+			tileSet = Main.resize(ImageIO.read(new File("TileSetPlaceholder.png")), 400, 400);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+
+
+
+	}
 
 	public int fps = 100;
 	public int pcStartX = 100;
-	public int pcStartY = 183;
+	public int pcStartY = 100;
 	public double movementSpeed = 2;
 	public double movementFrame = 1;
 	public double scrollX = 0;
@@ -141,14 +160,14 @@ public class Main extends JPanel implements Runnable {
 		scrollY = -175;
 		boxes = new ArrayList<Box>();
 		instaKill = new ArrayList<Box>();
-		boxes.add(new Box(0, 350, 2500, 400));
+		boxes.add(new Box(50, 350, 2500, 400));
 		boxes.add(new Box(0, -175, 10000, 0));
 		boxes.add(new Box(0, 200, 350, 250));
 		boxes.add(new Box(-150, -175, 50, 400));
 		boxes.add(new Box(850, 300, 900, 400));
 		boxes.add(new Box(850, 0, 900, 200));
 		boxes.add(new Box(1350, 200, 1400, 400));
-		boxes.add(new Box(1050, 250, 1200, 300));
+		boxes.add(new Box(1050, 250, 1200, 300, tileSet, 0,150,0));
 		boxes.add(new Box(1650, 0, 1700, 300));
 		boxes.add(new Box(2250, 0, 2300, 300));
 		instaKill.add(new Box(2500, 375, 2700, 400));
