@@ -17,7 +17,7 @@ public class CheckPoint extends Entity {
 		try {
 			spriteImage = Main.resize(ImageIO.read(new File("checkPoint.png")), 64, 32);
 		} catch (IOException e1) {
-			e1.printStackTrace();
+			//e1.printStackTrace();
 		}
 	}
 

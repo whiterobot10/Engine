@@ -24,12 +24,12 @@ public class Player extends Entity {
 		try {
 			spriteImage = Main.resize(ImageIO.read(new File("walkCycle.png")), 576, 64);
 		} catch (IOException e1) {
-			e1.printStackTrace();
+			//e1.printStackTrace();
 		}
 		try {
 			healImage = Main.resize(ImageIO.read(new File("healOverlay.png")), 192, 64);
 		} catch (IOException e1) {
-			e1.printStackTrace();
+			//e1.printStackTrace();
 		}
 	}
 
@@ -79,7 +79,7 @@ public class Player extends Entity {
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		
-		double scrollXAmount = screenSize.width/5;
+		double scrollXAmount = screenSize.width*0.4;
 		
 		while (x > game.scrollX + (screenSize.width - scrollXAmount)) {
 			game.scrollX += 1;
@@ -100,10 +100,10 @@ public class Player extends Entity {
 		super.update(game);
 		if (shoot) {
 			if (facingLeft) {
-				game.newEntities.add(new bullet(x - (width+Math.abs(xv)+8), y-10, -32, 0, attack2Power, maimDamage2));
+				game.newEntities.add(new Bullet(x - (width+Math.abs(xv)+8), y-10, -32, 0, attack2Power, maimDamage2));
 
 			} else {
-				game.newEntities.add(new bullet(x + (width+Math.abs(xv)+8), y-10, 32, 0, attack2Power, maimDamage2));
+				game.newEntities.add(new Bullet(x + (width+Math.abs(xv)+8), y-10, 32, 0, attack2Power, maimDamage2));
 
 			}
 			shoot = false;

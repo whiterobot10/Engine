@@ -6,13 +6,13 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class bullet extends Entity {
+public class Bullet extends Entity {
 	int damage = 1;
 	double xSpeed = 0;
 	double ySpeed = 0;
 	int type = 0;
 
-	public bullet(double xstart, double ystart, double xSpeedStart, double ySpeedStart, int damageStart,
+	public Bullet(double xstart, double ystart, double xSpeedStart, double ySpeedStart, int damageStart,
 			double MaimDamage) {
 		super(xstart, ystart);
 		xSpeed = xSpeedStart;
@@ -31,12 +31,12 @@ public class bullet extends Entity {
 		try {
 			spriteImage = Main.resize(ImageIO.read(new File("bullet.png")), 128, 32);
 		} catch (IOException e1) {
-			e1.printStackTrace();
+			//e1.printStackTrace();
 		}
 
 	}
 
-	public bullet(double xstart, double ystart, double xSpeedStart, double ySpeedStart, int damageStart,
+	public Bullet(double xstart, double ystart, double xSpeedStart, double ySpeedStart, int damageStart,
 			double MaimDamage, int setType) {
 		super(xstart, ystart);
 		xSpeed = xSpeedStart;
@@ -56,7 +56,7 @@ public class bullet extends Entity {
 		try {
 			spriteImage = Main.resize(ImageIO.read(new File("bullet.png")), 128, 32);
 		} catch (IOException e1) {
-			e1.printStackTrace();
+			//e1.printStackTrace();
 		}
 
 	}

@@ -24,7 +24,7 @@ public class WallTurret extends Entity {
 		try {
 			spriteImage = Main.resize(ImageIO.read(new File("turret.png")), 128, 32);
 		} catch (IOException e1) {
-			e1.printStackTrace();
+			//e1.printStackTrace();
 		}
 	}
 
@@ -38,7 +38,7 @@ public class WallTurret extends Entity {
 		try {
 			spriteImage = Main.resize(ImageIO.read(new File("turret.png")), 128, 32);
 		} catch (IOException e1) {
-			e1.printStackTrace();
+			//e1.printStackTrace();
 		}
 		rocket = isRocket;
 	}
@@ -50,11 +50,11 @@ public class WallTurret extends Entity {
 			if (attack2Delay == 0) {
 				attack2Delay = 20;
 				if (rocket) {
-					game.newEntities.add(new bullet(x + Math.cos(direction) * 50,
+					game.newEntities.add(new Bullet(x + Math.cos(direction) * 50,
 							y  + Math.sin(direction) * 50, Math.cos(direction) * 10,
 							Math.sin(direction) * 10, attack2Power, maimDamage, 1));
 				} else {
-					game.newEntities.add(new bullet(x + Math.cos(direction) * 50,
+					game.newEntities.add(new Bullet(x + Math.cos(direction) * 50,
 							y + Math.sin(direction) * 50, Math.cos(direction) * 20,
 							Math.sin(direction) * 20, attack2Power, maimDamage));
 				}

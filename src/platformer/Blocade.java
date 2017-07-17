@@ -19,7 +19,7 @@ public class Blocade extends Entity {
 		try {
 			spriteImage = Main.resize(ImageIO.read(new File("wall.png")), 250, 50);
 		} catch (IOException e1) {
-			e1.printStackTrace();
+			//e1.printStackTrace();
 		}
 	}
 

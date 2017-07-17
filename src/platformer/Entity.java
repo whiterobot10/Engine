@@ -2,8 +2,12 @@ package platformer;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
 import java.io.File;
 import java.io.IOException;
 
@@ -29,7 +33,7 @@ public class Entity {
 	int stamina = 0;
 	int power = 0;
 	int iframes = 0;
-	int attackOffset = 30;
+	int attackOffset = 16;
 
 	boolean needsRemoval = false;
 	boolean canTakeDamage = true;
@@ -72,16 +76,30 @@ public class Entity {
 		try {
 			attack1Image = Main.resize(ImageIO.read(new File("slashAttack.png")), 194, 64);
 		} catch (IOException e1) {
-			e1.printStackTrace();
+			//e1.printStackTrace();
 		}
 
 		try {
 			spriteImage = Main.resize(ImageIO.read(new File("enemyWalkCycle.png")), 576, 64);
 		} catch (IOException e1) {
-			e1.printStackTrace();
+			//e1.printStackTrace();
 		}
 
 	}
+	
+	public void DrawPiece(Graphics2D g2d, BufferedImage textureInput, int cornerX, int cornerY, boolean isFlipped, int width, int heigh,int rotationRads) {
+		BufferedImage image = textureInput.getSubimage(cornerX, cornerY, width, height);
+		if (isFlipped) {
+			AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
+			tx.translate(-image.getWidth(null), 0);
+			AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+			image = op.filter(image, null);
+		}
+		g2d.rotate(rotationRads,(width)/2,(height)/2);
+		g2d.drawImage(image, null, (int)x, (int)y);
+		g2d.rotate(rotationRads*-1,(width)/2,(height)/2);
+	}
+	
 
 	int fieldWidth = 32;
 	int fieldHeight = 64;
@@ -295,7 +313,7 @@ public class Entity {
 						(int) x + (fieldWidth + attackOffset), (int) y + (fieldHeight / 2), attack1Power,
 						attackKnockBack, -7, maimDamage));
 				game.flashDisplay.add(new Box((int) x + attackOffset, (int) y - (fieldHeight / 2),
-						(int) x + (fieldWidth + width), (int) y + (fieldHeight / 2), attack1Image,
+						(int) x + (fieldWidth + attackOffset), (int) y + (fieldHeight / 2), attack1Image,
 						(attack1Duration - attack1) * fieldWidth, 0, false, 1));
 
 			}
