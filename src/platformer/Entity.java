@@ -70,6 +70,7 @@ public class Entity {
 
 	BufferedImage spriteImage = null;
 	BufferedImage attack1Image = null;
+	BufferedImage attack2Image = null;
 
 	{
 

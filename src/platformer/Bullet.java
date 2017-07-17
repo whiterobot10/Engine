@@ -15,7 +15,6 @@ public class Bullet extends Entity {
 	int type = 0;
 	boolean hitWall=false;
 	int explosionTime=0;
-	BufferedImage explosionImg =null;
 
 	public Bullet(double xstart, double ystart, double xSpeedStart, double ySpeedStart, int damageStart,
 			double MaimDamage) {
@@ -33,11 +32,7 @@ public class Bullet extends Entity {
 		maimDamage = MaimDamage;
 		friction = 0;
 		airFriction = 0;
-		try {
-			explosionImg = Main.resize(ImageIO.read(new File("explosion.png")), 64, 64);
-		} catch (IOException e1) {
-			//e1.printStackTrace();
-		}
+
 		try {
 			spriteImage = Main.resize(ImageIO.read(new File("bullet.png")), 256, 64);
 		} catch (IOException e1) {
@@ -78,8 +73,9 @@ public class Bullet extends Entity {
 		}
 		//game.flashDisplay.add(new Box((int) x - 8, (int) y - 8, (int) x + 24, (int) y + 24, spriteImage, type * 32, 0,
 			//	Math.atan2(ySpeed, xSpeed), 2));
-		super.DrawPiece((Graphics2D) g, 0, 0, spriteImage, type * 64, 0, false, 64, 64, Math.atan2(ySpeed, xSpeed));
-		if(explosionTime>0){super.DrawPiece((Graphics2D)g,0,0, spriteImage, 0, 0, false, 64, 64, 0);}
+		if(explosionTime>0){super.DrawPiece((Graphics2D)g,0,0, spriteImage, (explosionTime-1)*64, 0, false, 64, 64, 0);}else{
+		super.DrawPiece((Graphics2D) g, 0, 0, spriteImage, type * 64, 0, false, 64, 64, Math.atan2(ySpeed, xSpeed));}
+		
 	}
 
 	private void bulletRemoveOnCollide(Main game) {
@@ -146,6 +142,11 @@ public class Bullet extends Entity {
 					(int) x + (width / 2) + 3, (int) y + (height / 2) + 3, damage, 0, 0, maimDamage));
 			needsRemoval=true;
 		} else if (hitWall && type == 1) {
+			try {
+				spriteImage = Main.resize(ImageIO.read(new File("explosion.png")), 512, 64);
+			} catch (IOException e1) {
+				//e1.printStackTrace();
+			}
 			xSpeed=0;
 			ySpeed=0;
 			explosionTime++;
