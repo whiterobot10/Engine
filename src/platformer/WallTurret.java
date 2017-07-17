@@ -15,8 +15,26 @@ public class WallTurret extends Entity {
 
 	public WallTurret(double xstart, double ystart) {
 		super(xstart, ystart);
-		maxHealth = 40;
-		health = 40;
+		maxHealth = 10;
+		health = 10;
+		width = 64;
+		height = 64;
+		imgWidth = 64;
+		imgHeight = 64;
+		attack2Power = 5;
+		maimDamage = 2;
+		canBeRemoved = true;
+		try {
+			spriteImage = Main.resize(ImageIO.read(new File("turret.png")), 256, 64);
+		} catch (IOException e1) {
+			// e1.printStackTrace();
+		}
+	}
+
+	public WallTurret(double xstart, double ystart, boolean isRocket) {
+		super(xstart, ystart);
+		maxHealth = 10;
+		health = 10;
 		width = 64;
 		height = 64;
 		imgWidth = 64;
@@ -29,29 +47,19 @@ public class WallTurret extends Entity {
 		} catch (IOException e1) {
 			// e1.printStackTrace();
 		}
-	}
-
-	public WallTurret(double xstart, double ystart, boolean isRocket) {
-		super(xstart, ystart);
-		health = 64;
-		width = 32;
-		height = 32;
-		attack2Power = 15;
-		maimDamage = 7;
-		try {
-			spriteImage = Main.resize(ImageIO.read(new File("turret.png")), 256, 64);
-		} catch (IOException e1) {
-			// e1.printStackTrace();
-		}
 		rocket = isRocket;
 	}
 
 	@Override
 	public void update(Main game) {
+		if (iframes > 0) {
+			iframes--;
+		}
 		if (game.lineOsight((int) x, (int) y, (int) game.PC.x, (int) game.PC.y)) {
 			direction = Math.atan2(game.PC.y - y, game.PC.x - x);
 			if (attack2Delay == 0) {
-				attack2Delay = 20;
+				if(rocket){attack2Delay=20;}else
+				{attack2Delay = 10;}
 				if (rocket) {
 					game.newEntities.add(new Bullet(x + Math.cos(direction) * 64, y + Math.sin(direction) * 64,
 							Math.cos(direction) * 20, Math.sin(direction) * 20, attack2Power, maimDamage, 1));
@@ -83,10 +91,13 @@ public class WallTurret extends Entity {
 		} else {
 			super.DrawPiece((Graphics2D) g, 0, 0, spriteImage, 128, 0, false, 64, 64, direction);
 		}
-		g.setColor(Color.gray);
-		g.fillRect((int) x - (imgWidth / 2), (int) y - (imgHeight / 2) - 10, imgWidth, 5);
-		g.setColor(Color.RED);
-		g.fillRect((int) x - (imgWidth / 2), (int) y - (imgHeight / 2) - 10, health, 5);
+		if (health > 0) {
+			g.setColor(Color.gray);
+			g.fillRect((int) x - (maxHealth / 2), (int) y - (imgHeight / 2) - 10, maxHealth, 5);
+			g.setColor(Color.RED);
+			g.fillRect((int) x - (maxHealth / 2), (int) y - (imgHeight / 2) - 10, health, 5);
+
+		}
 		// g.setColor(Color.DARK_GRAY);
 		// g.fillRect((int) x, (int) y, width, height);
 		// g.setColor(Color.GRAY);
