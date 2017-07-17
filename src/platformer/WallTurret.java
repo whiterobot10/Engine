@@ -2,6 +2,7 @@ package platformer;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.io.File;
 import java.io.IOException;
 
@@ -16,15 +17,17 @@ public class WallTurret extends Entity {
 		super(xstart, ystart);
 		maxHealth = 40;
 		health = 40;
-		width = 32;
-		height = 32;
+		width = 64;
+		height = 64;
+		imgWidth = 64;
+		imgHeight = 64;
 		attack2Power = 10;
 		maimDamage = 5;
 		canBeRemoved = true;
 		try {
-			spriteImage = Main.resize(ImageIO.read(new File("turret.png")), 128, 32);
+			spriteImage = Main.resize(ImageIO.read(new File("turret.png")), 256, 64);
 		} catch (IOException e1) {
-			//e1.printStackTrace();
+			// e1.printStackTrace();
 		}
 	}
 
@@ -36,9 +39,9 @@ public class WallTurret extends Entity {
 		attack2Power = 15;
 		maimDamage = 7;
 		try {
-			spriteImage = Main.resize(ImageIO.read(new File("turret.png")), 128, 32);
+			spriteImage = Main.resize(ImageIO.read(new File("turret.png")), 256, 64);
 		} catch (IOException e1) {
-			//e1.printStackTrace();
+			// e1.printStackTrace();
 		}
 		rocket = isRocket;
 	}
@@ -50,17 +53,15 @@ public class WallTurret extends Entity {
 			if (attack2Delay == 0) {
 				attack2Delay = 20;
 				if (rocket) {
-					game.newEntities.add(new Bullet(x + Math.cos(direction) * 50,
-							y  + Math.sin(direction) * 50, Math.cos(direction) * 10,
-							Math.sin(direction) * 10, attack2Power, maimDamage, 1));
+					game.newEntities.add(new Bullet(x + Math.cos(direction) * 64, y + Math.sin(direction) * 64,
+							Math.cos(direction) * 10, Math.sin(direction) * 10, attack2Power, maimDamage, 1));
 				} else {
-					game.newEntities.add(new Bullet(x + Math.cos(direction) * 50,
-							y + Math.sin(direction) * 50, Math.cos(direction) * 20,
-							Math.sin(direction) * 20, attack2Power, maimDamage));
+					game.newEntities.add(new Bullet(x + Math.cos(direction) * 64, y + Math.sin(direction) * 64,
+							Math.cos(direction) * 20, Math.sin(direction) * 20, attack2Power, maimDamage));
 				}
 
 			} else {
-				attack2Delay--;
+				attack2Delay--; 
 			}
 
 		} else if (attack2Delay > 0) {
@@ -74,16 +75,13 @@ public class WallTurret extends Entity {
 		if (game.Show_Hit_Boxes) {
 			super.showHitBox(g);
 		}
-		game.flashDisplay.add(new Box((int) x-(width/2), (int) y-height/2, (int) x + (width/2), (int) y + (height/2), spriteImage, 0, 0, 3));
+		super.DrawPiece((Graphics2D) g, 0, 0, spriteImage, 0, 0, false, 64, 64, 0);
 		if (!(rocket)) {
-			game.flashDisplay
-					.add(new Box((int) x-(width/2), (int) y-height/2, (int) x + (width/2), (int) y + (height/2), spriteImage, 32, 0, direction, 3));
+			super.DrawPiece((Graphics2D) g, 0, 0, spriteImage, 64, 0, false, 64, 64, direction);
 		} else if (attack2Delay <= 3) {
-			game.flashDisplay
-					.add(new Box((int) x-(width/2), (int) y-height/2, (int) x + (width/2), (int) y + (height/2), spriteImage, 96, 0, direction, 3));
+			super.DrawPiece((Graphics2D) g, 0, 0, spriteImage, 192, 0, false, 64, 64, direction);
 		} else {
-			game.flashDisplay
-					.add(new Box((int) x-(width/2), (int) y-height/2, (int) x + (width/2), (int) y + (height/2), spriteImage, 64, 0, direction, 3));
+			super.DrawPiece((Graphics2D) g, 0, 0, spriteImage, 128, 0, false, 64, 64, direction);
 		}
 		g.setColor(Color.gray);
 		g.fillRect((int) x - (imgWidth / 2), (int) y - (imgHeight / 2) - 10, imgWidth, 5);

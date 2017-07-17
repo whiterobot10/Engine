@@ -1,6 +1,7 @@
 package platformer;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.io.File;
 import java.io.IOException;
 
@@ -63,8 +64,12 @@ public class Bullet extends Entity {
 
 	@Override
 	public void draw(Graphics g, Main game) {
-		game.flashDisplay.add(new Box((int) x - 8, (int) y - 8, (int) x + 24, (int) y + 24, spriteImage, type * 32, 0,
-				Math.atan2(ySpeed, xSpeed), 2));
+		if (game.Show_Hit_Boxes) {
+			super.showHitBox(g);
+		}
+		//game.flashDisplay.add(new Box((int) x - 8, (int) y - 8, (int) x + 24, (int) y + 24, spriteImage, type * 32, 0,
+			//	Math.atan2(ySpeed, xSpeed), 2));
+		super.DrawPiece((Graphics2D) g, -16, -16, spriteImage, 0, 0, false, 32, 32, Math.atan2(ySpeed, xSpeed));
 	}
 
 	private void bulletRemoveOnCollide(Main game) {

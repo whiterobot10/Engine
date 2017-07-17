@@ -189,6 +189,7 @@ public class Main extends JPanel implements Runnable {
 		boxes.add(new Box(1100, 0, 1200, 100, tileSet2, 100,600,0));
 		boxes.add(new Box(1200, 0, 1300, 100, tileSet2, 100,300,0));
 		entities.add(new Slasher(1250, -50));
+		entities.add(new WallTurret(400, -200));
 		boxes.add(new Box(1300, 0, 1400, 100, tileSet2, 100,300,0));
 		boxes.add(new Box(1400, 0, 1500, 100, tileSet2, 100,300,0));
 		boxes.add(new Box(1500, 0, 1600, 100, tileSet2, 100,300,0));
@@ -225,7 +226,7 @@ public class Main extends JPanel implements Runnable {
 //		entities.add(new CheckPoint(2400, 333));
 //		entities.add(new Slasher(100, 300));
 //		entities.add(new Gunner(1000, 300));
-//		entities.add(new WallTurret(1750, 50));
+//		
 //		entities.add(new WallTurret(2175, 50));
 //		entities.add(new WallTurret(3325, 300, true));
 //		entities.add(new Blocade(3100, 175, 30));

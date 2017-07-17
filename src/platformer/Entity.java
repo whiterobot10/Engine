@@ -87,17 +87,18 @@ public class Entity {
 
 	}
 	
-	public void DrawPiece(Graphics2D g2d, BufferedImage textureInput, int cornerX, int cornerY, boolean isFlipped, int width, int heigh,int rotationRads) {
-		BufferedImage image = textureInput.getSubimage(cornerX, cornerY, width, height);
+	public void DrawPiece(Graphics2D g2d,int xOffset,int yOffset, BufferedImage textureInput, int cornerX, int cornerY, boolean isFlipped, int inputWidth, int inputHeigh, double rotationRads) {
+		BufferedImage image = textureInput.getSubimage(cornerX, cornerY, inputWidth, inputHeigh);
 		if (isFlipped) {
 			AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
 			tx.translate(-image.getWidth(null), 0);
 			AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
 			image = op.filter(image, null);
 		}
-		g2d.rotate(rotationRads,(width)/2,(height)/2);
-		g2d.drawImage(image, null, (int)x, (int)y);
-		g2d.rotate(rotationRads*-1,(width)/2,(height)/2);
+		g2d.rotate(rotationRads,x,y);
+		g2d.drawImage(image, null, (int)x-(imgWidth/2)-xOffset, (int)y-(imgHeight/2)-yOffset);
+		System.out.println(xOffset +" "+ this);
+		g2d.rotate(rotationRads*-1,x,y);
 	}
 	
 
@@ -225,8 +226,8 @@ public class Entity {
 		if (game.Show_Hit_Boxes) {
 			showHitBox(g);
 		}
-		game.flashDisplay.add(new Box((int) x - (imgWidth / 2), (int) y - (imgHeight / 2), (int) x + (imgWidth / 2),
-				(int) y + (imgHeight / 2), spriteImage, ((int) step) * imgWidth, 0, facingLeft, 1));
+		DrawPiece((Graphics2D)g,0,0, spriteImage, ((int) step) * imgWidth, 0, facingLeft, imgWidth, imgHeight, 0);
+		
 		if (mOB) {
 			if (health > 0) {
 				g.setColor(Color.gray);

@@ -2,6 +2,7 @@ package platformer;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -39,17 +40,14 @@ public class Player extends Entity {
 	public void draw(Graphics g, Main game) {
 
 		super.draw(g, game);
-
+		
 		if (down && xv == 0 && yv == 0) {
 			if (healTime == 20) {
-				game.flashDisplay.add(new Box((int) x - (imgWidth / 2), (int) y - (imgHeight / 2), (int) x + (imgWidth / 2),
-						(int) y + (imgHeight / 2), healImage, 128, 0, facingLeft, 1));
+				super.DrawPiece((Graphics2D)g,0,0, healImage, 128, 0, facingLeft, imgWidth, imgHeight, 0);
 			} else if (healTime >= 10) {
-				game.flashDisplay.add(new Box((int) x - (imgWidth / 2), (int) y - (imgHeight / 2), (int) x + (imgWidth / 2),
-						(int) y + (imgHeight / 2), healImage, 64, 0, facingLeft, 1));
+				super.DrawPiece((Graphics2D)g,0,0, healImage, 64, 0, facingLeft, imgWidth, imgHeight, 0);
 			} else {
-				game.flashDisplay.add(new Box((int) x - (imgWidth / 2), (int) y - (imgHeight / 2), (int) x + (imgWidth / 2),
-						(int) y + (imgHeight / 2), healImage, 0, 0, facingLeft, 1));
+				super.DrawPiece((Graphics2D)g,0,0, healImage, 0, 0, facingLeft, imgWidth, imgHeight, 0);
 			}
 		}
 
