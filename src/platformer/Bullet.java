@@ -153,8 +153,10 @@ public class Bullet extends Entity {
 			
 			
 
+			game.damageFields.add(new DamageField((int) x - 16, (int) y - 16,
+					(int) x +16, (int) y + 16, damage, 0, 0, maimDamage));
 			game.damageFields.add(new DamageField((int) x - 32, (int) y - 32,
-					(int) x +32, (int) y + 32, damage, 0, 0, maimDamage));}
+					(int) x +32, (int) y + 32, damage/2, 0, 0, maimDamage/2));}
 		if(explosionTime>=8){needsRemoval=true;}
 	}
 
