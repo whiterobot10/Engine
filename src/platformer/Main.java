@@ -189,7 +189,7 @@ public class Main extends JPanel implements Runnable {
 		boxes.add(new Box(1100, 0, 1200, 100, tileSet2, 100,600,0));
 		boxes.add(new Box(1200, 0, 1300, 100, tileSet2, 100,300,0));
 		entities.add(new Slasher(1250, -50));
-		entities.add(new WallTurret(400, -200));
+		entities.add(new WallTurret(550, -50));
 		boxes.add(new Box(1300, 0, 1400, 100, tileSet2, 100,300,0));
 		boxes.add(new Box(1400, 0, 1500, 100, tileSet2, 100,300,0));
 		boxes.add(new Box(1500, 0, 1600, 100, tileSet2, 100,300,0));
@@ -287,21 +287,21 @@ public class Main extends JPanel implements Runnable {
 					e.draw(g, Color.RED);
 				}
 			}
-			for (Box e : flashDisplay) {
-				e.draw(g, 5);
-			}
-			for (Box e : flashDisplay) {
-				e.draw(g, 4);
-			}
-			for (Box e : flashDisplay) {
-				e.draw(g, 3);
-			}
-			for (Box e : flashDisplay) {
-				e.draw(g, 2);
-			}
-			for (Box e : flashDisplay) {
-				e.draw(g, 1);
-			}
+//			for (Box e : flashDisplay) {
+//				e.draw(g, 5);
+//			}
+//			for (Box e : flashDisplay) {
+//				e.draw(g, 4);
+//			}
+//			for (Box e : flashDisplay) {
+//				e.draw(g, 3);
+//			}
+//			for (Box e : flashDisplay) {
+//				e.draw(g, 2);
+//			}
+//			for (Box e : flashDisplay) {
+//				e.draw(g, 1);
+//			}
 			for (Box e : boxes) {
 
 				e.draw(g);

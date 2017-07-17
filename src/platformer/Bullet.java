@@ -30,7 +30,7 @@ public class Bullet extends Entity {
 		friction = 0;
 		airFriction = 0;
 		try {
-			spriteImage = Main.resize(ImageIO.read(new File("bullet.png")), 128, 32);
+			spriteImage = Main.resize(ImageIO.read(new File("bullet.png")), 256, 64);
 		} catch (IOException e1) {
 			//e1.printStackTrace();
 		}
@@ -55,7 +55,7 @@ public class Bullet extends Entity {
 		airFriction = 0;
 		type = setType;
 		try {
-			spriteImage = Main.resize(ImageIO.read(new File("bullet.png")), 128, 32);
+			spriteImage = Main.resize(ImageIO.read(new File("bullet.png")), 256, 64);
 		} catch (IOException e1) {
 			//e1.printStackTrace();
 		}
@@ -69,11 +69,11 @@ public class Bullet extends Entity {
 		}
 		//game.flashDisplay.add(new Box((int) x - 8, (int) y - 8, (int) x + 24, (int) y + 24, spriteImage, type * 32, 0,
 			//	Math.atan2(ySpeed, xSpeed), 2));
-		super.DrawPiece((Graphics2D) g, -16, -16, spriteImage, 0, 0, false, 32, 32, Math.atan2(ySpeed, xSpeed));
+		super.DrawPiece((Graphics2D) g, 0, 0, spriteImage, type * 64, 0, false, 64, 64, Math.atan2(ySpeed, xSpeed));
 	}
 
 	private void bulletRemoveOnCollide(Main game) {
-		if (game.clsnCheck(this)) {
+		if (game.clsnCheck(super.getRect(),game.boxes)) {
 			needsRemoval = true;
 		}
 		if (game.clsnCheck(this, game.entities)) {

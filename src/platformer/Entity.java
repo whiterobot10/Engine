@@ -97,7 +97,6 @@ public class Entity {
 		}
 		g2d.rotate(rotationRads,x,y);
 		g2d.drawImage(image, null, (int)x-(imgWidth/2)-xOffset, (int)y-(imgHeight/2)-yOffset);
-		System.out.println(xOffset +" "+ this);
 		g2d.rotate(rotationRads*-1,x,y);
 	}
 	
