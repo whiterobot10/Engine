@@ -54,10 +54,10 @@ public class WallTurret extends Entity {
 				attack2Delay = 20;
 				if (rocket) {
 					game.newEntities.add(new Bullet(x + Math.cos(direction) * 64, y + Math.sin(direction) * 64,
-							Math.cos(direction) * 10, Math.sin(direction) * 10, attack2Power, maimDamage, 1));
+							Math.cos(direction) * 20, Math.sin(direction) * 20, attack2Power, maimDamage, 1));
 				} else {
 					game.newEntities.add(new Bullet(x + Math.cos(direction) * 64, y + Math.sin(direction) * 64,
-							Math.cos(direction) * 20, Math.sin(direction) * 20, attack2Power, maimDamage));
+							Math.cos(direction) * 30, Math.sin(direction) * 30, attack2Power, maimDamage));
 				}
 
 			} else {

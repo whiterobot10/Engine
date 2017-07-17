@@ -2,6 +2,7 @@ package platformer;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -12,6 +13,9 @@ public class Bullet extends Entity {
 	double xSpeed = 0;
 	double ySpeed = 0;
 	int type = 0;
+	boolean hitWall=false;
+	int explosionTime=0;
+	BufferedImage explosionImg =null;
 
 	public Bullet(double xstart, double ystart, double xSpeedStart, double ySpeedStart, int damageStart,
 			double MaimDamage) {
@@ -29,6 +33,11 @@ public class Bullet extends Entity {
 		maimDamage = MaimDamage;
 		friction = 0;
 		airFriction = 0;
+		try {
+			explosionImg = Main.resize(ImageIO.read(new File("explosion.png")), 64, 64);
+		} catch (IOException e1) {
+			//e1.printStackTrace();
+		}
 		try {
 			spriteImage = Main.resize(ImageIO.read(new File("bullet.png")), 256, 64);
 		} catch (IOException e1) {
@@ -70,25 +79,26 @@ public class Bullet extends Entity {
 		//game.flashDisplay.add(new Box((int) x - 8, (int) y - 8, (int) x + 24, (int) y + 24, spriteImage, type * 32, 0,
 			//	Math.atan2(ySpeed, xSpeed), 2));
 		super.DrawPiece((Graphics2D) g, 0, 0, spriteImage, type * 64, 0, false, 64, 64, Math.atan2(ySpeed, xSpeed));
+		if(explosionTime>0){super.DrawPiece((Graphics2D)g,0,0, spriteImage, 0, 0, false, 64, 64, 0);}
 	}
 
 	private void bulletRemoveOnCollide(Main game) {
 		if (game.clsnCheck(super.getRect(),game.boxes)) {
-			needsRemoval = true;
+			hitWall = true;
 		}
 		if (game.clsnCheck(this, game.entities)) {
-			needsRemoval = true;
+			hitWall = true;
 		}
 		if (game.clsnCheck(game.PC)) {
-			needsRemoval = true;
+			hitWall = true;
 		}
 	}
 
 	@Override
 	public void update(Main game) {
 		if (type == 1) {
-			xv = xv * 2;
-			yv = yv * 2;
+			xv = xv *1.5;
+			yv = yv *1.5;
 		}
 		// System.out.println(xSpeed);
 		if (ySpeed > 0) {
@@ -131,10 +141,20 @@ public class Bullet extends Entity {
 
 	@Override
 	public void makeDamage(Main game) {
-		if (needsRemoval) {
+		if (hitWall&&type==0) {
 			game.damageFields.add(new DamageField((int) x - 3 - (width / 2), (int) y - 3 - (height / 2),
 					(int) x + (width / 2) + 3, (int) y + (height / 2) + 3, damage, 0, 0, maimDamage));
-		}
+			needsRemoval=true;
+		} else if (hitWall && type == 1) {
+			xSpeed=0;
+			ySpeed=0;
+			explosionTime++;
+			
+			
+
+			game.damageFields.add(new DamageField((int) x - 32, (int) y - 32,
+					(int) x +32, (int) y + 32, damage, 0, 0, maimDamage));}
+		if(explosionTime>=8){needsRemoval=true;}
 	}
 
 }
