@@ -132,7 +132,7 @@ public class Main extends JPanel implements Runnable {
 				if (e.getKeyCode() == KeyEvent.VK_Z && PC.attack1 == 0 && !(PC.space)) {
 					PC.attack1 = PC.attack1Duration;
 				}
-				if (e.getKeyCode() == KeyEvent.VK_X && PC.attack2Delay == 0) {
+				if (e.getKeyCode() == KeyEvent.VK_X && PC.attack2 == 0) {
 					PC.shoot = true;
 				}
 

@@ -62,7 +62,7 @@ public class Entity {
 	int attackKnockBack = 35;
 	double knockBackResist = 0;
 	int attack1Delay = 0;
-	int attack2Delay = 0;
+	int attack2 = 0;
 	double maimDamage = 3;
 	double maimDamage2 = 1;
 
@@ -305,17 +305,18 @@ public class Entity {
 				game.damageFields.add(new DamageField((int) x - (fieldWidth + attackOffset),
 						(int) y - (fieldHeight / 2), (int) x - attackOffset, (int) y + (fieldHeight / 2), attack1Power,
 						attackKnockBack * -1, -7, maimDamage));
-				game.flashDisplay.add(new Box((int) x - (fieldWidth + attackOffset), (int) y - (fieldHeight / 2),
-						(int) x - attackOffset, (int) y + (fieldHeight / 2), attack1Image,
-						(attack1Duration - attack1) * fieldWidth, 0, true, 1));
+//				game.flashDisplay.add(new Box((int) x - (fieldWidth + attackOffset), (int) y - (fieldHeight / 2),
+//						(int) x - attackOffset, (int) y + (fieldHeight / 2), attack1Image,
+//						(attack1Duration - attack1) * fieldWidth, 0, true, 1));
 			} else {
 
 				game.damageFields.add(new DamageField((int) x + attackOffset, (int) y - (fieldHeight / 2),
 						(int) x + (fieldWidth + attackOffset), (int) y + (fieldHeight / 2), attack1Power,
 						attackKnockBack, -7, maimDamage));
-				game.flashDisplay.add(new Box((int) x + attackOffset, (int) y - (fieldHeight / 2),
-						(int) x + (fieldWidth + attackOffset), (int) y + (fieldHeight / 2), attack1Image,
-						(attack1Duration - attack1) * fieldWidth, 0, false, 1));
+//				game.flashDisplay.add(new Box((int) x + attackOffset, (int) y - (fieldHeight / 2),
+//						(int) x + (fieldWidth + attackOffset), (int) y + (fieldHeight / 2), attack1Image,
+//						(attack1Duration - attack1) * fieldWidth, 0, false, 1));
+				
 
 			}
 			if (attack1 == 1) {

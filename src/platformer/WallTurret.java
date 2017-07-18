@@ -57,9 +57,9 @@ public class WallTurret extends Entity {
 		}
 		if (game.lineOsight((int) x, (int) y, (int) game.PC.x, (int) game.PC.y)) {
 			direction = Math.atan2(game.PC.y - y, game.PC.x - x);
-			if (attack2Delay == 0) {
-				if(rocket){attack2Delay=20;}else
-				{attack2Delay = 10;}
+			if (attack2 == 0) {
+				if(rocket){attack2=20;}else
+				{attack2 = 10;}
 				if (rocket) {
 					game.newEntities.add(new Bullet(x + Math.cos(direction) * 64, y + Math.sin(direction) * 64,
 							Math.cos(direction) * 20, Math.sin(direction) * 20, attack2Power, maimDamage, 1));
@@ -69,11 +69,11 @@ public class WallTurret extends Entity {
 				}
 
 			} else {
-				attack2Delay--; 
+				attack2--; 
 			}
 
-		} else if (attack2Delay > 0) {
-			attack2Delay--;
+		} else if (attack2 > 0) {
+			attack2--;
 		}
 
 	}
@@ -86,7 +86,7 @@ public class WallTurret extends Entity {
 		super.DrawPiece((Graphics2D) g, 0, 0, spriteImage, 0, 0, false, 64, 64, 0);
 		if (!(rocket)) {
 			super.DrawPiece((Graphics2D) g, 0, 0, spriteImage, 64, 0, false, 64, 64, direction);
-		} else if (attack2Delay <= 3) {
+		} else if (attack2 <= 3) {
 			super.DrawPiece((Graphics2D) g, 0, 0, spriteImage, 192, 0, false, 64, 64, direction);
 		} else {
 			super.DrawPiece((Graphics2D) g, 0, 0, spriteImage, 128, 0, false, 64, 64, direction);

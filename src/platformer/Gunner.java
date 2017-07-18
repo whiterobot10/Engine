@@ -47,11 +47,11 @@ public class Gunner extends Entity {
 			if (Math.abs(x - game.PC.x) < 48 && Math.abs(y - game.PC.y) < 16 && attack1 == 0) {
 				attack1 = attack1Duration;
 			}
-			if (attack2Delay > 0) {
-				attack2Delay--;
+			if (attack2 > 0) {
+				attack2--;
 			}
-			if (attack2Delay == 0) {
-				attack2Delay = 10;
+			if (attack2 == 0) {
+				attack2 = 10;
 
 				if (facingLeft) {
 					game.newEntities.add(new Bullet(x - (width+xvMax), y-10, -32, 0, attack2Power, maimDamage2));
