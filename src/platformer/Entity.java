@@ -81,7 +81,7 @@ public class Entity {
 		}
 
 		try {
-			spriteImage = Main.resize(ImageIO.read(new File("enemyWalkCycle.png")), 576, 64);
+			spriteImage = Main.resize(ImageIO.read(new File("EnemySprites1.png")), 336, 96);
 		} catch (IOException e1) {
 			//e1.printStackTrace();
 		}
@@ -226,7 +226,24 @@ public class Entity {
 		if (game.Show_Hit_Boxes) {
 			showHitBox(g);
 		}
-		DrawPiece((Graphics2D)g,0,0, spriteImage, ((int) step) * imgWidth, 0, facingLeft, imgWidth, imgHeight, 0);
+		DrawPiece((Graphics2D) g, -8, -60, spriteImage, ((int) step) * 48, 60, facingLeft, 48, 36, 0);
+		if (!(attack2 == 0)) {
+			DrawPiece((Graphics2D) g, -8, -15, spriteImage, 96, 0, facingLeft, 48, 60, 0);
+		} else if (!(attack1 == 0)) {
+			DrawPiece((Graphics2D) g, -8, -15, spriteImage, 144, 0, facingLeft, 48, 60, 0);
+		} else if(xv==0){
+			DrawPiece((Graphics2D) g, -8, -15, spriteImage, 0, 0, facingLeft, 48, 60, 0);
+		} else {
+			DrawPiece((Graphics2D) g, -8, -15, spriteImage, 192, 0, facingLeft, 48, 60, 0);
+		}
+		DrawPiece((Graphics2D) g, -8, -60, spriteImage, ((int) step) * 48, 60, facingLeft, 48, 36, 0);
+		if (attack1 > 0) {
+			if (facingLeft) {
+				DrawPiece((Graphics2D) g, 64 + (attack1 * -6), -15, spriteImage, 240, 0, facingLeft, 48, 60, 0);
+			} else {
+				DrawPiece((Graphics2D) g, -72 + (attack1 * 6), -15, spriteImage, 240, 0, facingLeft, 48, 60, 0);
+			}
+		}
 		
 		if (mOB) {
 			if (health > 0) {
@@ -341,7 +358,7 @@ public class Entity {
 		for (DamageField x : game.damageFields) {
 			if (x.collides(getRect()) && iframes == 0) {
 				health -= x.damage;
-				iframes = 15;
+				iframes = 8;
 				xv = x.knockBack * (1 - knockBackResist);
 				yv += x.knockBackUp * (1 - knockBackResist);
 				maimAmount += x.maimDamage;

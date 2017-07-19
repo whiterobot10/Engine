@@ -4,7 +4,7 @@ public class Gunner extends Entity {
 
 	public Gunner(double xstart, double ystart) {
 		super(xstart, ystart);
-		attack1Power = 0;
+		attack1Power = 1;
 		walkspeed = 3.5;
 		friction = 3.5;
 		maxHealth = 15;
@@ -13,6 +13,8 @@ public class Gunner extends Entity {
 		maimDamage = 0;
 		maimDamage2 = 1;
 		canBeRemoved = true;
+		height = 96;
+		imgHeight=96;
 	}
 
 	// draw Gunner
@@ -81,6 +83,9 @@ public class Gunner extends Entity {
 			}
 
 		} else {
+			if (attack2 > 0) {
+				attack2--;
+			}
 			step += 0.25;
 			if (step >= 6) {
 				step -= 5;

@@ -26,12 +26,7 @@ public class Player extends Entity {
 		imgHeight=96;
 
 		try {
-			spriteImage = Main.resize(ImageIO.read(new File("PlayerSprites.png")), 336, 96);
-		} catch (IOException e1) {
-			// e1.printStackTrace();
-		}
-		try {
-			healImage = Main.resize(ImageIO.read(new File("healOverlay.png")), 192, 64);
+			spriteImage = Main.resize(ImageIO.read(new File("PlayerSprites.png")), 336*2, 96);
 		} catch (IOException e1) {
 			// e1.printStackTrace();
 		}
@@ -41,28 +36,27 @@ public class Player extends Entity {
 
 	@Override
 	public void draw(Graphics g, Main game) {
-		if (game.Show_Hit_Boxes) {
-			showHitBox(g);
-		}
 
-		DrawPiece((Graphics2D) g, -8, -60, spriteImage, ((int) step) * 48, 60, facingLeft, 48, 36, 0);
-		if (!(attack2 == 0)) {
-			DrawPiece((Graphics2D) g, -8, -15, spriteImage, 96, 0, facingLeft, 48, 60, 0);
-		} else if (!(attack1 == 0)) {
-			DrawPiece((Graphics2D) g, -8, -15, spriteImage, 144, 0, facingLeft, 48, 60, 0);
-		} else if(xv==0){
-			DrawPiece((Graphics2D) g, -8, -15, spriteImage, 0, 0, facingLeft, 48, 60, 0);
-		} else {
-			DrawPiece((Graphics2D) g, -8, -15, spriteImage, 192, 0, facingLeft, 48, 60, 0);
-		}
-		DrawPiece((Graphics2D) g, -8, -60, spriteImage, ((int) step) * 48, 60, facingLeft, 48, 36, 0);
-		if (attack1 > 0) {
-			if (facingLeft) {
-				DrawPiece((Graphics2D) g, 64 + (attack1 * -6), -15, spriteImage, 240, 0, facingLeft, 48, 60, 0);
-			} else {
-				DrawPiece((Graphics2D) g, -72 + (attack1 * 6), -15, spriteImage, 240, 0, facingLeft, 48, 60, 0);
-			}
-		}
+super.draw(g, game);
+
+//		DrawPiece((Graphics2D) g, -8, -60, spriteImage, ((int) step) * 48, 60, facingLeft, 48, 36, 0);
+//		if (!(attack2 == 0)) {
+//			DrawPiece((Graphics2D) g, -8, -15, spriteImage, 96, 0, facingLeft, 48, 60, 0);
+//		} else if (!(attack1 == 0)) {
+//			DrawPiece((Graphics2D) g, -8, -15, spriteImage, 144, 0, facingLeft, 48, 60, 0);
+//		} else if(xv==0){
+//			DrawPiece((Graphics2D) g, -8, -15, spriteImage, 0, 0, facingLeft, 48, 60, 0);
+//		} else {
+//			DrawPiece((Graphics2D) g, -8, -15, spriteImage, 192, 0, facingLeft, 48, 60, 0);
+//		}
+//		DrawPiece((Graphics2D) g, -8, -60, spriteImage, ((int) step) * 48, 60, facingLeft, 48, 36, 0);
+//		if (attack1 > 0) {
+//			if (facingLeft) {
+//				DrawPiece((Graphics2D) g, 64 + (attack1 * -6), -15, spriteImage, 240, 0, facingLeft, 48, 60, 0);
+//			} else {
+//				DrawPiece((Graphics2D) g, -72 + (attack1 * 6), -15, spriteImage, 240, 0, facingLeft, 48, 60, 0);
+//			}
+//		}
 
 //		if (down && xv == 0 && yv == 0) {
 //			if (healTime == 20) {
@@ -152,8 +146,8 @@ public class Player extends Entity {
 		if (xv != 0) {
 
 			step += 0.5;
-			if (step >= 6) {
-				step -= 5;
+			if (step >= 12) {
+				step -= 11;
 			}
 			y+=4;
 			if(game.clsnCheck(super.getRect())==false){step=1;}
