@@ -226,15 +226,16 @@ public class Entity {
 		if (game.Show_Hit_Boxes) {
 			showHitBox(g);
 		}
+		y+=2;
 		DrawPiece((Graphics2D) g, -8, -60, spriteImage, ((int) step) * 48, 60, facingLeft, 48, 36, 0);
 		if (!(attack2 == 0)) {
 			DrawPiece((Graphics2D) g, -8, -15, spriteImage, 96, 0, facingLeft, 48, 60, 0);
 		} else if (!(attack1 == 0)) {
 			DrawPiece((Graphics2D) g, -8, -15, spriteImage, 144, 0, facingLeft, 48, 60, 0);
-		} else if(xv==0){
-			DrawPiece((Graphics2D) g, -8, -15, spriteImage, 0, 0, facingLeft, 48, 60, 0);
-		} else {
+		} else if(!(xv==0)&&!(game.clsnCheck(this))){
 			DrawPiece((Graphics2D) g, -8, -15, spriteImage, 192, 0, facingLeft, 48, 60, 0);
+		} else {
+			DrawPiece((Graphics2D) g, -8, -15, spriteImage, 0, 0, facingLeft, 48, 60, 0);
 		}
 		DrawPiece((Graphics2D) g, -8, -60, spriteImage, ((int) step) * 48, 60, facingLeft, 48, 36, 0);
 		if (attack1 > 0) {
@@ -244,6 +245,7 @@ public class Entity {
 				DrawPiece((Graphics2D) g, -72 + (attack1 * 6), -15, spriteImage, 240, 0, facingLeft, 48, 60, 0);
 			}
 		}
+		y-=2;
 		
 		if (mOB) {
 			if (health > 0) {
