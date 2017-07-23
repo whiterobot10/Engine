@@ -1,5 +1,10 @@
 package platformer;
 
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 public class Gunner extends Entity {
 
 	public Gunner(double xstart, double ystart) {
@@ -15,6 +20,17 @@ public class Gunner extends Entity {
 		canBeRemoved = true;
 		height = 96;
 		imgHeight=96;
+		{
+
+
+
+			try {
+				spriteImage = Main.resize(ImageIO.read(new File("EnemySprites1.png")), 336*2, 96);
+			} catch (IOException e1) {
+				//e1.printStackTrace();
+			}
+
+		}
 	}
 
 	// draw Gunner
@@ -75,11 +91,11 @@ public class Gunner extends Entity {
 				facingLeft = false;
 			}
 			step -= 0.5;
-			if (step >= 6) {
-				step -= 5;
+			if (step >= 12) {
+				step -= 11;
 			}
 			if (step <= 0) {
-				step += 5;
+				step += 11;
 			}
 
 		} else {
@@ -87,8 +103,8 @@ public class Gunner extends Entity {
 				attack2--;
 			}
 			step += 0.25;
-			if (step >= 6) {
-				step -= 5;
+			if (step >= 12) {
+				step -= 11;
 			}
 			xvMax = 5;
 			y -= 1;
@@ -96,8 +112,8 @@ public class Gunner extends Entity {
 				left = true;
 				right = false;
 				x = x - 2;
-				if (game.clsnCheck(this) || game.clsnCheck(this, game.entities)) {
-
+				if (game.clsnCheck(this)||game.clsnCheck(this, game.entities)) {
+					
 					facingLeft = false;
 				}
 				x = x + 2;
@@ -106,13 +122,14 @@ public class Gunner extends Entity {
 				left = false;
 
 				x = x + 2;
-				if (game.clsnCheck(this) || game.clsnCheck(this, game.entities)) {
-
+				if (game.clsnCheck(this)||game.clsnCheck(this, game.entities)) {
+					
 					facingLeft = true;
 				}
 				x = x - 2;
-				y += 1;
+				
 			}
+			y += 1;
 		}
 
 		super.update(game);

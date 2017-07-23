@@ -72,23 +72,8 @@ public class Entity {
 	BufferedImage attack1Image = null;
 	BufferedImage attack2Image = null;
 
-	{
-
-		try {
-			attack1Image = Main.resize(ImageIO.read(new File("slashAttack.png")), 194, 64);
-		} catch (IOException e1) {
-			//e1.printStackTrace();
-		}
-
-		try {
-			spriteImage = Main.resize(ImageIO.read(new File("EnemySprites1.png")), 336, 96);
-		} catch (IOException e1) {
-			//e1.printStackTrace();
-		}
-
-	}
-	
-	public void DrawPiece(Graphics2D g2d,int xOffset,int yOffset, BufferedImage textureInput, int cornerX, int cornerY, boolean isFlipped, int inputWidth, int inputHeigh, double rotationRads) {
+	public void DrawPiece(Graphics2D g2d, int xOffset, int yOffset, BufferedImage textureInput, int cornerX,
+			int cornerY, boolean isFlipped, int inputWidth, int inputHeigh, double rotationRads) {
 		BufferedImage image = textureInput.getSubimage(cornerX, cornerY, inputWidth, inputHeigh);
 		if (isFlipped) {
 			AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
@@ -96,11 +81,10 @@ public class Entity {
 			AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
 			image = op.filter(image, null);
 		}
-		g2d.rotate(rotationRads,x,y);
-		g2d.drawImage(image, null, (int)x-(imgWidth/2)-xOffset, (int)y-(imgHeight/2)-yOffset);
-		g2d.rotate(rotationRads*-1,x,y);
+		g2d.rotate(rotationRads, x, y);
+		g2d.drawImage(image, null, (int) x - (imgWidth / 2) - xOffset, (int) y - (imgHeight / 2) - yOffset);
+		g2d.rotate(rotationRads * -1, x, y);
 	}
-	
 
 	int fieldWidth = 32;
 	int fieldHeight = 64;
@@ -124,7 +108,6 @@ public class Entity {
 	}
 
 	private void Physics(Main game) {
-
 		if (up) {
 			yv += gravityFloat;
 		} else {
@@ -202,7 +185,6 @@ public class Entity {
 				xv = 0;
 			}
 		}
-
 	}
 
 	// obtain rectangular hitbox of entity
@@ -226,27 +208,30 @@ public class Entity {
 		if (game.Show_Hit_Boxes) {
 			showHitBox(g);
 		}
-		y+=2;
-		DrawPiece((Graphics2D) g, -8, -60, spriteImage, ((int) step) * 48, 60, facingLeft, 48, 36, 0);
-		if (!(attack2 == 0)) {
-			DrawPiece((Graphics2D) g, -8, -15, spriteImage, 96, 0, facingLeft, 48, 60, 0);
-		} else if (!(attack1 == 0)) {
-			DrawPiece((Graphics2D) g, -8, -15, spriteImage, 144, 0, facingLeft, 48, 60, 0);
-		} else if(!(xv==0)&&!(game.clsnCheck(this))){
-			DrawPiece((Graphics2D) g, -8, -15, spriteImage, 192, 0, facingLeft, 48, 60, 0);
+		y += 2;
+	
+		if (attack2 != 0) {
+			DrawPiece((Graphics2D) g, -8, -5, spriteImage, 96, 0, facingLeft, 48, 60, 0);
+		} else if (attack1 != 0) {
+			DrawPiece((Graphics2D) g, -8, -5, spriteImage, 144, 0, facingLeft, 48, 60, 0);
+		} else if (xv != 0 && !(game.clsnCheck(this))) {
+			DrawPiece((Graphics2D) g, -8, -5, spriteImage, 192, 0, facingLeft, 48, 60, 0);
+		} else if (xv != 0) {
+
+			DrawPiece((Graphics2D) g, -8, -5, spriteImage, 336 + ((int)(step/3) * 48), 0, facingLeft, 48, 60, 0);
 		} else {
-			DrawPiece((Graphics2D) g, -8, -15, spriteImage, 0, 0, facingLeft, 48, 60, 0);
+			DrawPiece((Graphics2D) g, -8, -5, spriteImage, 0, 0, facingLeft, 48, 60, 0);
 		}
-		DrawPiece((Graphics2D) g, -8, -60, spriteImage, ((int) step) * 48, 60, facingLeft, 48, 36, 0);
+		DrawPiece((Graphics2D) g, -8, -50, spriteImage, ((int) step) * 48, 60, facingLeft, 48, 36, 0);
 		if (attack1 > 0) {
 			if (facingLeft) {
-				DrawPiece((Graphics2D) g, 64 + (attack1 * -6), -15, spriteImage, 240, 0, facingLeft, 48, 60, 0);
+				DrawPiece((Graphics2D) g, 64 + (attack1 * -6), -5, spriteImage, 240, 0, facingLeft, 48, 60, 0);
 			} else {
-				DrawPiece((Graphics2D) g, -72 + (attack1 * 6), -15, spriteImage, 240, 0, facingLeft, 48, 60, 0);
+				DrawPiece((Graphics2D) g, -72 + (attack1 * 6), -5, spriteImage, 240, 0, facingLeft, 48, 60, 0);
 			}
 		}
-		y-=2;
-		
+		y -= 2;
+
 		if (mOB) {
 			if (health > 0) {
 				g.setColor(Color.gray);
@@ -324,18 +309,21 @@ public class Entity {
 				game.damageFields.add(new DamageField((int) x - (fieldWidth + attackOffset),
 						(int) y - (fieldHeight / 2), (int) x - attackOffset, (int) y + (fieldHeight / 2), attack1Power,
 						attackKnockBack * -1, -7, maimDamage));
-//				game.flashDisplay.add(new Box((int) x - (fieldWidth + attackOffset), (int) y - (fieldHeight / 2),
-//						(int) x - attackOffset, (int) y + (fieldHeight / 2), attack1Image,
-//						(attack1Duration - attack1) * fieldWidth, 0, true, 1));
+				// game.flashDisplay.add(new Box((int) x - (fieldWidth +
+				// attackOffset), (int) y - (fieldHeight / 2),
+				// (int) x - attackOffset, (int) y + (fieldHeight / 2),
+				// attack1Image,
+				// (attack1Duration - attack1) * fieldWidth, 0, true, 1));
 			} else {
 
 				game.damageFields.add(new DamageField((int) x + attackOffset, (int) y - (fieldHeight / 2),
 						(int) x + (fieldWidth + attackOffset), (int) y + (fieldHeight / 2), attack1Power,
 						attackKnockBack, -7, maimDamage));
-//				game.flashDisplay.add(new Box((int) x + attackOffset, (int) y - (fieldHeight / 2),
-//						(int) x + (fieldWidth + attackOffset), (int) y + (fieldHeight / 2), attack1Image,
-//						(attack1Duration - attack1) * fieldWidth, 0, false, 1));
-				
+				// game.flashDisplay.add(new Box((int) x + attackOffset, (int) y
+				// - (fieldHeight / 2),
+				// (int) x + (fieldWidth + attackOffset), (int) y + (fieldHeight
+				// / 2), attack1Image,
+				// (attack1Duration - attack1) * fieldWidth, 0, false, 1));
 
 			}
 			if (attack1 == 1) {
@@ -366,7 +354,7 @@ public class Entity {
 				maimAmount += x.maimDamage;
 				healTime = 0;
 			}
-			if ((health <= 0 && canTakeDamage)||(y > 1000) && canBeRemoved) {
+			if ((health <= 0 && canTakeDamage) || (y > 1000) && canBeRemoved) {
 				needsRemoval = true;
 			}
 		}

@@ -1,25 +1,32 @@
 package platformer;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Blocade extends Entity {
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
+public class Baracade extends Entity {
 	int phase = 0;
 
-	public Blocade(double xstart, double ystart, int setHealth) {
+	public Baracade(double xstart, double ystart, int setHealth) {
 		super(xstart, ystart);
 		maxHealth = setHealth;
 		health = setHealth;
-		width = 50;
-		height = 50;
+		width = 48;
+		height = 96;
+		imgWidth =48;
+		imgHeight=96;
 		canBeRemoved = true;
+
 		try {
-			spriteImage = Main.resize(ImageIO.read(new File("wall.png")), 250, 50);
+			spriteImage = Main.resize(ImageIO.read(new File("Doors.png")), 96, 96);
 		} catch (IOException e1) {
-			//e1.printStackTrace();
+			// e1.printStackTrace();
 		}
 	}
 
@@ -43,8 +50,16 @@ public class Blocade extends Entity {
 
 	// make damage textures
 	@Override
+	public void takeDamage(Main game) {
+		super.takeDamage(game);
+		if(iframes==8){
+		game.playSound("doorhit.wav");}
+	}
+
+	@Override
 	public void draw(Graphics g, Main game) {
-		game.flashDisplay.add(new Box((int) x-(width/2), (int) y-(height/2), (int) x + (width/2), (int) y + (height/2), spriteImage, phase *50, 0,4));
+		
+		DrawPiece((Graphics2D) g, 0, 0, spriteImage, 0, 0, facingLeft, 48, 96, 0);
 	}
 
 }

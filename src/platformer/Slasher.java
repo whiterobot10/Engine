@@ -1,5 +1,10 @@
 package platformer;
 
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 public class Slasher extends Entity {
 
 	public Slasher(double xstart, double ystart) {
@@ -9,8 +14,19 @@ public class Slasher extends Entity {
 		maxHealth = 20;
 		health = 20;
 		canBeRemoved = true;
-		height = 96;
+		height = 90;
 		imgHeight=96;
+		{
+
+
+
+			try {
+				spriteImage = Main.resize(ImageIO.read(new File("EnemySprites1.png")), 336*2, 96);
+			} catch (IOException e1) {
+				//e1.printStackTrace();
+			}
+
+		}
 
 	}
 
@@ -61,16 +77,16 @@ public class Slasher extends Entity {
 					facingLeft=false;
 				}
 				step += 0.5;
-				if (step >= 6) {
-					step -= 5;
+				if (step >= 12) {
+					step -= 11;
 				}
 			}
 
 			
 		} else {
 			step += 0.25;
-			if (step >= 6) {
-				step -= 5;
+			if (step >= 12) {
+				step -= 11;
 			}
 			xvMax = 5;
 			y -= 1;

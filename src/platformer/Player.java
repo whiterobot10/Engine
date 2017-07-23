@@ -22,7 +22,7 @@ public class Player extends Entity {
 		maxHealth = 20;
 		health = 20;
 		attack1Delay = 10;
-		height = 96;
+		height = 72;
 		imgHeight=96;
 
 		try {
