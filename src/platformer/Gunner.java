@@ -18,7 +18,7 @@ public class Gunner extends Entity {
 		maimDamage = 0;
 		maimDamage2 = 1;
 		canBeRemoved = true;
-		height = 96;
+		height = 72;
 		imgHeight=96;
 		{
 

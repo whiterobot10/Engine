@@ -176,7 +176,11 @@ public class Main extends JPanel implements Runnable {
 		flashDisplay = new ArrayList<Box>();
 		damageFields = new ArrayList<DamageField>();
 
-		makeTile(0, 0, tileSet, 0, 3);
+		makeTile(-4, 0, tileSet, 0, 3);
+		makeTile(-3, 0, tileSet, 1, 3);
+		makeTile(-2, 0, tileSet, 1, 3);
+		makeTile(-1, 0, tileSet, 1, 3);
+		makeTile(0, 0, tileSet, 1, 3);
 		makeTile(1, 0, tileSet, 1, 3);
 		makeTile(2, 0, tileSet, 1, 3);
 		makeDoor(2, 1);
@@ -216,6 +220,48 @@ public class Main extends JPanel implements Runnable {
 		makeTile(23, 3, tileSet, 5, 1);
 		makeTile(23, 4, tileSet, 3, 0);
 		makeTile(24, 3, tileSet, 2, 3);
+		makeTile(26, 1, tileSet, 0, 3);
+		makeTile(27, 1, tileSet, 1, 6);
+		makeTile(27, 2, tileSet, 3, 0);
+		makeTile(28, 1, tileSet, 1, 3);
+		makeTile(29, 1, tileSet, 1, 3);
+		makeTile(30, 1, tileSet, 1, 3);
+		makeTile(31, 1, tileSet, 1, 3);
+		makeTile(32, 1, tileSet, 1, 3);
+		makeTile(33, 1, tileSet, 1, 3);
+		makeTile(34, 1, tileSet, 1, 3);
+		makeTile(35, 1, tileSet, 1, 3);
+		makeTile(36, 1, tileSet, 1, 3);
+		makeEnemy(36, 2, "Slasher");
+		makeTile(37, 1, tileSet, 1, 6);
+		makeTile(37, 2, tileSet, 3, 0);
+		makeTile(38, 1, tileSet, 2, 3);
+		
+		makeTile(41, 1, tileSet, 0, 3);
+		makeTile(42, 0, tileSet, 3, 2);
+		makeTile(42, 1, tileSet, 5, 1);
+		makeTile(42, 2, tileSet, 3, 0);
+		makeTile(43, 1, tileSet, 2, 3);
+		
+		makeTile(46, 1, tileSet, 0, 3);
+		makeTile(47, 1, tileSet, 1, 6);
+		makeTile(47, 2, tileSet, 3, 1);
+		makeTile(47, 3, tileSet, 3, 0);
+		makeTile(48, 1, tileSet, 1, 3);
+		makeTile(49, 1, tileSet, 1, 3);
+		makeTile(50, 1, tileSet, 1, 3);
+		makeTile(51, 1, tileSet, 1, 3);
+		makeTile(52, 1, tileSet, 1, 3);
+		makeTile(53, 1, tileSet, 1, 3);
+		makeTile(54, 1, tileSet, 1, 3);
+		makeTile(55, 1, tileSet, 1, 3);
+		makeTile(56, 1, tileSet, 1, 3);
+		makeEnemy(56, 2, "Gunner");
+		makeTile(57, 1, tileSet, 1, 6);
+		makeTile(57, 2, tileSet, 3, 1);
+		makeTile(57, 3, tileSet, 3, 0);
+		makeTile(58, 1, tileSet, 2, 3);
+
 
 		// boxes.add(new Box(50, 350, 2500, 400));
 		// boxes.add(new Box(0, -175, 10000, 0));
@@ -260,6 +306,18 @@ public class Main extends JPanel implements Runnable {
 
 		objectDefine = true;
 		repaint();
+	}
+
+	private void makeEnemy(int x, int y, String string) {
+		if (string.equalsIgnoreCase("slasher")) {
+			entities.add(new Slasher(48 * x + 24, -48 * y));
+		}
+		if (string.equalsIgnoreCase("gunner")) {
+			entities.add(new Gunner(48 * x + 24, -48 * y));
+		}
+		if (string.equalsIgnoreCase("wallturret")) {
+			entities.add(new WallTurret(48 * x + 24, -48 * y));
+		}
 	}
 
 	public void events() {

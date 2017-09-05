@@ -14,7 +14,7 @@ public class Slasher extends Entity {
 		maxHealth = 20;
 		health = 20;
 		canBeRemoved = true;
-		height = 90;
+		height = 72;
 		imgHeight=96;
 		{
 
