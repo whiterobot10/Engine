@@ -13,6 +13,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
@@ -54,12 +56,12 @@ public class Main extends JPanel implements Runnable {
 	//
 	//
 
-	public ArrayList<Box> boxes;
-	public ArrayList<Box> instaKill;
-	public ArrayList<Entity> entities;
-	public ArrayList<Entity> newEntities;
-	public ArrayList<DamageField> damageFields;
-	public ArrayList<Box> flashDisplay;
+	public List<Box> boxes;
+	public List<Box> instaKill;
+	public List<Entity> entities;
+	public List<Entity> newEntities;
+	public List<DamageField> damageFields;
+	public List<Box> flashDisplay;
 	public Player PC;
 
 	BufferedImage tileSet = null;
@@ -169,12 +171,12 @@ public class Main extends JPanel implements Runnable {
 		PC = new Player(pcStartX, pcStartY);
 		scrollX = pcStartX;
 		scrollY = -500;
-		boxes = new ArrayList<Box>();
-		instaKill = new ArrayList<Box>();
-		entities = new ArrayList<Entity>();
-		newEntities = new ArrayList<Entity>();
-		flashDisplay = new ArrayList<Box>();
-		damageFields = new ArrayList<DamageField>();
+		boxes = Collections.synchronizedList(new ArrayList<Box>());
+		instaKill = Collections.synchronizedList(new ArrayList<Box>());
+		entities = Collections.synchronizedList(new ArrayList<Entity>());
+		newEntities = Collections.synchronizedList(new ArrayList<Entity>());
+		flashDisplay = Collections.synchronizedList(new ArrayList<Box>());
+		damageFields = Collections.synchronizedList(new ArrayList<DamageField>());
 
 		makeTile(-4, 0, tileSet, 0, 3);
 		makeTile(-3, 0, tileSet, 1, 3);
@@ -450,7 +452,7 @@ public class Main extends JPanel implements Runnable {
 		return false;
 	}
 
-	public boolean clsnCheck(Rectangle rect, ArrayList<Box> list) {
+	public boolean clsnCheck(Rectangle rect, List<Box> list) {
 
 		for (Box e : list) {
 
@@ -463,7 +465,7 @@ public class Main extends JPanel implements Runnable {
 		return false;
 	}
 
-	public boolean clsnCheck(Entity entity, ArrayList<Entity> list) {
+	public boolean clsnCheck(Entity entity, List<Entity> list) {
 
 		for (Entity e : list) {
 
@@ -572,4 +574,8 @@ public class Main extends JPanel implements Runnable {
 		}
 
 	}
+
+
+
+
 }

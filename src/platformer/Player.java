@@ -138,7 +138,7 @@ super.draw(g, game);
 						.add(new Bullet(x + (width + Math.abs(xv) + 8), y - 10, 32, 0, attack2Power, maimDamage2));
 
 			}
-			shoot = false;
+			//shoot = false;
 		}
 		if (health <= 0 || y > 5000) {
 			game.GameOver();

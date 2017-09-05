@@ -10,6 +10,8 @@ import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -72,6 +74,8 @@ public class Entity {
 	BufferedImage attack1Image = null;
 	BufferedImage attack2Image = null;
 
+	
+
 	public void DrawPiece(Graphics2D g2d, int xOffset, int yOffset, BufferedImage textureInput, int cornerX,
 			int cornerY, boolean isFlipped, int inputWidth, int inputHeigh, double rotationRads) {
 		BufferedImage image = textureInput.getSubimage(cornerX, cornerY, inputWidth, inputHeigh);
@@ -99,6 +103,8 @@ public class Entity {
 		imgWidth = 64;
 		imgHeight = 64;
 	}
+	
+
 
 	// preforming physics calculations
 	public boolean collides(Rectangle rect) {
