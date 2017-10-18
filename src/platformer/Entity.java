@@ -74,8 +74,6 @@ public class Entity {
 	BufferedImage attack1Image = null;
 	BufferedImage attack2Image = null;
 
-	
-
 	public void DrawPiece(Graphics2D g2d, int xOffset, int yOffset, BufferedImage textureInput, int cornerX,
 			int cornerY, boolean isFlipped, int inputWidth, int inputHeigh, double rotationRads) {
 		BufferedImage image = textureInput.getSubimage(cornerX, cornerY, inputWidth, inputHeigh);
@@ -103,8 +101,6 @@ public class Entity {
 		imgWidth = 64;
 		imgHeight = 64;
 	}
-	
-
 
 	// preforming physics calculations
 	public boolean collides(Rectangle rect) {
@@ -215,25 +211,41 @@ public class Entity {
 			showHitBox(g);
 		}
 		y += 2;
-	
+
 		if (attack2 != 0) {
 			DrawPiece((Graphics2D) g, -8, -5, spriteImage, 96, 0, facingLeft, 48, 60, 0);
-		} else if (attack1 != 0) {
-			DrawPiece((Graphics2D) g, -8, -5, spriteImage, 144, 0, facingLeft, 48, 60, 0);
+		} else if (attack1 != 0 && attack1 > -5) {
+			if (attack1 > 0) {
+				DrawPiece((Graphics2D) g, -8, -5, spriteImage, 144, 0, facingLeft, 48, 60, 0);
+				if (facingLeft) {
+					DrawPiece((Graphics2D) g, 16, 14, spriteImage, 9*48, 60, facingLeft, 48, 36, 0);
+				} else {
+					DrawPiece((Graphics2D) g, -32, 14, spriteImage, 9*48, 60, facingLeft, 48, 36, 0);
+				}
+			} else {
+				DrawPiece((Graphics2D) g, -8, -5, spriteImage, 144 + 48, 0, facingLeft, 48, 60, 0);
+				if (facingLeft) {
+					DrawPiece((Graphics2D) g, 16, -42, spriteImage, 10*48, 60, facingLeft, 48, 36, 0);
+				} else {
+					DrawPiece((Graphics2D) g, -32, -42, spriteImage, 10*48, 60, facingLeft, 48, 36, 0);
+				}
+			}
+
 		} else if (xv != 0 && !(game.clsnCheck(this))) {
-			DrawPiece((Graphics2D) g, -8, -5, spriteImage, 192, 0, facingLeft, 48, 60, 0);
+			DrawPiece((Graphics2D) g, -8, -5, spriteImage, 192 + 48, 0, facingLeft, 48, 60, 0);
 		} else if (xv != 0) {
 
-			DrawPiece((Graphics2D) g, -8, -5, spriteImage, 336 + ((int)(step/3) * 48), 0, facingLeft, 48, 60, 0);
+			DrawPiece((Graphics2D) g, -8, -5, spriteImage, 336 + 48 + ((int) (step / 3) * 48), 0, facingLeft, 48, 60,
+					0);
 		} else {
 			DrawPiece((Graphics2D) g, -8, -5, spriteImage, 0, 0, facingLeft, 48, 60, 0);
 		}
 		DrawPiece((Graphics2D) g, -8, -50, spriteImage, ((int) step) * 48, 60, facingLeft, 48, 36, 0);
 		if (attack1 > 0) {
 			if (facingLeft) {
-				DrawPiece((Graphics2D) g, 64 + (attack1 * -6), -5, spriteImage, 240, 0, facingLeft, 48, 60, 0);
+				DrawPiece((Graphics2D) g, 64 + (attack1 * -6), -5, spriteImage, 240 + 48, 0, facingLeft, 48, 60, 0);
 			} else {
-				DrawPiece((Graphics2D) g, -72 + (attack1 * 6), -5, spriteImage, 240, 0, facingLeft, 48, 60, 0);
+				DrawPiece((Graphics2D) g, -72 + (attack1 * 6), -5, spriteImage, 240 + 48, 0, facingLeft, 48, 60, 0);
 			}
 		}
 		y -= 2;

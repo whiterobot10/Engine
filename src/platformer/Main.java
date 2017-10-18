@@ -147,6 +147,9 @@ public class Main extends JPanel implements Runnable {
 				if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 					PC.down = false;
 				}
+				if (e.getKeyCode() == KeyEvent.VK_X) {
+					PC.shoot = false;
+				}
 			}
 
 		});
@@ -238,13 +241,13 @@ public class Main extends JPanel implements Runnable {
 		makeTile(37, 1, tileSet, 1, 6);
 		makeTile(37, 2, tileSet, 3, 0);
 		makeTile(38, 1, tileSet, 2, 3);
-		
+
 		makeTile(41, 1, tileSet, 0, 3);
 		makeTile(42, 0, tileSet, 3, 2);
 		makeTile(42, 1, tileSet, 5, 1);
 		makeTile(42, 2, tileSet, 3, 0);
 		makeTile(43, 1, tileSet, 2, 3);
-		
+
 		makeTile(46, 1, tileSet, 0, 3);
 		makeTile(47, 1, tileSet, 1, 6);
 		makeTile(47, 2, tileSet, 3, 1);
@@ -263,7 +266,6 @@ public class Main extends JPanel implements Runnable {
 		makeTile(57, 2, tileSet, 3, 1);
 		makeTile(57, 3, tileSet, 3, 0);
 		makeTile(58, 1, tileSet, 2, 3);
-
 
 		// boxes.add(new Box(50, 350, 2500, 400));
 		// boxes.add(new Box(0, -175, 10000, 0));
@@ -336,10 +338,12 @@ public class Main extends JPanel implements Runnable {
 		g2d.transform(Trans);
 		if (objectDefine) {
 			int test1 = boxes.size();
-			for (Box e : boxes) {
+			synchronized (boxes) {
+				for (Box e : boxes) {
 
-				e.draw(g);
+					e.draw(g);
 
+				}
 			}
 			if (test1 != boxes.size()) {
 				System.out.println("SizeBefore " + test1 + " SizeAfter " + boxes.size());
@@ -349,11 +353,12 @@ public class Main extends JPanel implements Runnable {
 			if (PC.iframes % 6 < 3) {
 
 			}
+			synchronized (entities) {
+				for (Entity e : entities) {
+					e.draw(g, this);
+					if (e.iframes % 6 < 3) {
 
-			for (Entity e : entities) {
-				e.draw(g, this);
-				if (e.iframes % 6 < 3) {
-
+					}
 				}
 			}
 			if (Show_Damage_Fields) {
@@ -574,8 +579,5 @@ public class Main extends JPanel implements Runnable {
 		}
 
 	}
-
-
-
 
 }

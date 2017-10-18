@@ -26,7 +26,7 @@ public class Player extends Entity {
 		imgHeight=96;
 
 		try {
-			spriteImage = Main.resize(ImageIO.read(new File("PlayerSprites.png")), 336*2, 96);
+			spriteImage = Main.resize(ImageIO.read(new File("PlayerSprites.png")), 48*11, 48*2);
 		} catch (IOException e1) {
 			// e1.printStackTrace();
 		}
@@ -122,13 +122,13 @@ super.draw(g, game);
 		if (attack2 > 0) {
 			attack2--;
 		}
-		if (shoot) {
-			attack2 = 10;
+		if (shoot&&attack2==0) {
+			attack2 = 5;
 			attack1 = -1;
 
 		}
 		super.update(game);
-		if (shoot) {
+		if (shoot&&attack2==5) {
 			if (facingLeft) {
 				game.newEntities
 						.add(new Bullet(x - (width + Math.abs(xv) + 8), y - 10, -32, 0, attack2Power, maimDamage2));
@@ -146,8 +146,8 @@ super.draw(g, game);
 		if (xv != 0) {
 
 			step += 0.5;
-			if (step >= 12) {
-				step -= 11;
+			if (step >= 8) {
+				step -= 7;
 			}
 			y+=4;
 			if(game.clsnCheck(super.getRect())==false){step=1;}
