@@ -47,7 +47,7 @@ public class Main extends JPanel implements Runnable {
 	//
 	//
 
-	public boolean Show_Hit_Boxes = false;
+	public boolean Show_Hit_Boxes = true;
 	public boolean Show_Damage_Fields = false;
 
 	//

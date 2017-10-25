@@ -28,6 +28,7 @@ public class Entity {
 	int imgWidth = 0;
 	int imgHeight = 0;
 	boolean facingLeft = false;
+
 	
 	int health = 0;
 	int maxHealth = 0;
@@ -36,6 +37,7 @@ public class Entity {
 	int stamina = 0;
 	int power = 0;
 	int armor = 0;
+	boolean canMaim=true;
 	
 	
 	int iframes = 0;
@@ -81,7 +83,7 @@ public class Entity {
 
 	{
 		try {
-			heartImage = Main.resize(ImageIO.read(new File("Hearts.png")), 48, 24);
+			heartImage = Main.resize(ImageIO.read(new File("Hearts.png")), 96, 48);
 		} catch (IOException e1) {
 			// e1.printStackTrace();
 		}
@@ -224,23 +226,22 @@ public class Entity {
 		
 		for (int i = 0;i<maxHealth-maimAmount;i++){
 			int shift = 0;
-			
 			if (health<=i){
-				shift = 24;
+				shift = 48;
 			}
 			
 
 			if(i%4==0){
-				DrawPiece((Graphics2D) g, (maxHealth/4)+(i/4*-24)+27, 23, heartImage, 0+shift, 0, false, 12, 12, 0);	
+				DrawPiece((Graphics2D) g, ((maxHealth/8*24)+(i/4*-24))+27-((maxHealth*24)/8)+14, 23, heartImage, 0+shift, 0, false, 12, 12, 0);	
 			}
 			if(i%4==3){
-				DrawPiece((Graphics2D) g, (maxHealth/4)+(i/4*-24)+15, 23, heartImage, 12+shift, 0, false, 12, 12, 0);	
+				DrawPiece((Graphics2D) g, ((maxHealth/8*24)+(i/4*-24))+15-((maxHealth*24)/8)+14, 23, heartImage, 12+shift, 0, false, 12, 12, 0);	
 			}
 			if(i%4==2){
-				DrawPiece((Graphics2D) g, (maxHealth/4)+(i/4*-24)+15, 11, heartImage, 12+shift, 12, false, 12, 12, 0);	
+				DrawPiece((Graphics2D) g, ((maxHealth/8*24)+(i/4*-24))+15-((maxHealth*24)/8)+14, 11, heartImage, 12+shift, 12, false, 12, 12, 0);	
 			}
 			if(i%4==1){
-				DrawPiece((Graphics2D) g, (maxHealth/4)+(i/4*-24)+27, 11, heartImage, 0+shift, 12, false, 12, 12, 0);	
+				DrawPiece((Graphics2D) g, ((maxHealth/8*24)+(i/4*-24))+27-((maxHealth*24)/8)+14, 11, heartImage, 0+shift, 12, false, 12, 12, 0);	
 			}
 			
 			
@@ -425,7 +426,7 @@ public class Entity {
 				iframes = 8;
 				xv = x.knockBack * (1 - knockBackResist);
 				yv += x.knockBackUp * (1 - knockBackResist);
-				if(x.maimDamage>armor){
+				if(x.maimDamage>armor&&canMaim){
 				maimAmount += x.maimDamage-armor;}
 				healTime = 0;
 			}

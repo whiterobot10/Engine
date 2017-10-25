@@ -23,6 +23,7 @@ public class Baracade extends Entity {
 		imgHeight=96;
 		canBeRemoved = true;
 		armor=setArmor;
+		canMaim=false;
 
 		try {
 			spriteImage = Main.resize(ImageIO.read(new File("Doors.png")), 96, 96);
@@ -59,6 +60,9 @@ public class Baracade extends Entity {
 
 	@Override
 	public void draw(Graphics g, Main game) {
+		if (game.Show_Hit_Boxes) {
+			showHitBox(g);
+		}
 		super.showhealth(g);
 		DrawPiece((Graphics2D) g, 0, 0, spriteImage, 0, 0, facingLeft, 48, 96, 0);
 	}
