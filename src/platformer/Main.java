@@ -354,6 +354,7 @@ public class Main extends JPanel implements Runnable {
 
 			}
 			synchronized (entities) {
+				PC.draw(g, this);
 				for (Entity e : entities) {
 					e.draw(g, this);
 					if (e.iframes % 6 < 3) {
@@ -575,9 +576,16 @@ public class Main extends JPanel implements Runnable {
 		long Currant = System.currentTimeMillis();
 		long TimeCheck = System.currentTimeMillis() + 20;
 		while (TimeCheck - Currant >= 10) {
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			Currant = System.currentTimeMillis();
 		}
 
 	}
+	
 
 }

@@ -45,7 +45,7 @@ public class Entity {
 	public double gravity = 3;
 	public double gravityFloat = 1.5;
 	public double jumpStrenght = 21;
-	public double walkspeed = 6;
+	public double walkspeed = 3;
 	public double xvMax = 18;
 	public double friction = 10;
 	public double airFriction = 3;
@@ -215,15 +215,50 @@ public class Entity {
 		g.fillOval((int) x - 5, (int) y - 5, 10, 10);
 	}
 
+	
+	public void showhealth(Graphics g){
+		
+		for (int i = 0;i<maxHealth-maimAmount;i++){
+			int shift = 0;
+			
+			if (health<i){
+				shift = 24;
+			}
+			
+
+			if(i%4==0){
+				DrawPiece((Graphics2D) g, (maxHealth/4)+(i/4*-24)+27, 23, heartImage, 0+shift, 0, false, 12, 12, 0);	
+			}
+			if(i%4==3){
+				DrawPiece((Graphics2D) g, (maxHealth/4)+(i/4*-24)+15, 23, heartImage, 12+shift, 0, false, 12, 12, 0);	
+			}
+			if(i%4==2){
+				DrawPiece((Graphics2D) g, (maxHealth/4)+(i/4*-24)+15, 11, heartImage, 12+shift, 12, false, 12, 12, 0);	
+			}
+			if(i%4==1){
+				DrawPiece((Graphics2D) g, (maxHealth/4)+(i/4*-24)+27, 11, heartImage, 0+shift, 12, false, 12, 12, 0);	
+			}
+			
+			
+		}
+		
+	}
+	
+	
 	public void draw(Graphics g, Main game) {
+		
 		if (game.Show_Hit_Boxes) {
 			showHitBox(g);
 		}
+		
 
-		DrawPiece((Graphics2D) g, -11, 23, heartImage, 0, 0, false, 12, 12, 0);
-		DrawPiece((Graphics2D) g, -20, 23, heartImage, 12, 0, false, 12, 12, 0);
-		DrawPiece((Graphics2D) g, -11, 11, heartImage, 0, 12, false, 12, 12, 0);
-		DrawPiece((Graphics2D) g, -20, 11, heartImage, 12, 12, false, 12, 12, 0);
+		showhealth(g);
+
+
+		//DrawPiece((Graphics2D) g, -11, 23, heartImage, 0, 0, false, 12, 12, 0);
+		//DrawPiece((Graphics2D) g, -20, 23, heartImage, 12, 0, false, 12, 12, 0);
+		//DrawPiece((Graphics2D) g, -11, 11, heartImage, 0, 12, false, 12, 12, 0);
+		//DrawPiece((Graphics2D) g, -20, 11, heartImage, 12, 12, false, 12, 12, 0);
 		
 		
 		
@@ -267,22 +302,22 @@ public class Entity {
 		}
 		y -= 2;
 
-		if (mOB) {
-			if (health > 0) {
-				g.setColor(Color.gray);
-				g.fillRect((int) x - (maxHealth / 2), (int) y - (imgHeight / 2) - 10, maxHealth, 5);
-				g.setColor(Color.RED);
-				if (this == game.PC) {
-					g.setColor(Color.CYAN);
-				}
-				g.fillRect((int) x - (maxHealth / 2), (int) y - (imgHeight / 2) - 10, health, 5);
-
-				g.setColor(Color.black);
-				g.fillRect((int) (x - (maxHealth / 2)) + (maxHealth - maimAmount), (int) y - (imgHeight / 2) - 10,
-						maimAmount, 5);
-			}
-
-		}
+//		if (mOB) {
+//			if (health > 0) {
+//				g.setColor(Color.gray);
+//				g.fillRect((int) x - (maxHealth / 2), (int) y - (imgHeight / 2) - 10, maxHealth, 5);
+//				g.setColor(Color.RED);
+//				if (this == game.PC) {
+//					g.setColor(Color.CYAN);
+//				}
+//				g.fillRect((int) x - (maxHealth / 2), (int) y - (imgHeight / 2) - 10, health, 5);
+//
+//				g.setColor(Color.black);
+//				g.fillRect((int) (x - (maxHealth / 2)) + (maxHealth - maimAmount), (int) y - (imgHeight / 2) - 10,
+//						maimAmount, 5);
+//			}
+//
+//		}
 
 	}
 
