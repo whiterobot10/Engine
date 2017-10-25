@@ -47,7 +47,7 @@ public class Entity {
 	public double jumpStrenght = 21;
 	public double walkspeed = 6;
 	public double xvMax = 18;
-	public double friction = 5;
+	public double friction = 10;
 	public double airFriction = 3;
 
 	boolean left = false;
@@ -73,6 +73,15 @@ public class Entity {
 	BufferedImage spriteImage = null;
 	BufferedImage attack1Image = null;
 	BufferedImage attack2Image = null;
+	BufferedImage heartImage = null;
+
+	{
+		try {
+			heartImage = Main.resize(ImageIO.read(new File("Hearts.png")), 48, 24);
+		} catch (IOException e1) {
+			// e1.printStackTrace();
+		}
+	}
 
 	public void DrawPiece(Graphics2D g2d, int xOffset, int yOffset, BufferedImage textureInput, int cornerX,
 			int cornerY, boolean isFlipped, int inputWidth, int inputHeigh, double rotationRads) {
@@ -195,7 +204,7 @@ public class Entity {
 		return new Rectangle((int) x - (width / 2), (int) y - (height / 2), width, height);
 
 	}
-
+	
 	// draw entity
 	public void showHitBox(Graphics g) {
 		g.setColor(Color.RED);
@@ -210,6 +219,14 @@ public class Entity {
 		if (game.Show_Hit_Boxes) {
 			showHitBox(g);
 		}
+
+		DrawPiece((Graphics2D) g, -11, 23, heartImage, 0, 0, false, 12, 12, 0);
+		DrawPiece((Graphics2D) g, -20, 23, heartImage, 12, 0, false, 12, 12, 0);
+		DrawPiece((Graphics2D) g, -11, 11, heartImage, 0, 12, false, 12, 12, 0);
+		DrawPiece((Graphics2D) g, -20, 11, heartImage, 12, 12, false, 12, 12, 0);
+		
+		
+		
 		y += 2;
 
 		if (attack2 != 0) {
@@ -218,16 +235,16 @@ public class Entity {
 			if (attack1 > 0) {
 				DrawPiece((Graphics2D) g, -8, -5, spriteImage, 144, 0, facingLeft, 48, 60, 0);
 				if (facingLeft) {
-					DrawPiece((Graphics2D) g, 16, 14, spriteImage, 9*48, 60, facingLeft, 48, 36, 0);
+					DrawPiece((Graphics2D) g, 16, 14, spriteImage, 9 * 48, 60, facingLeft, 48, 36, 0);
 				} else {
-					DrawPiece((Graphics2D) g, -32, 14, spriteImage, 9*48, 60, facingLeft, 48, 36, 0);
+					DrawPiece((Graphics2D) g, -32, 14, spriteImage, 9 * 48, 60, facingLeft, 48, 36, 0);
 				}
 			} else {
 				DrawPiece((Graphics2D) g, -8, -5, spriteImage, 144 + 48, 0, facingLeft, 48, 60, 0);
 				if (facingLeft) {
-					DrawPiece((Graphics2D) g, 16, -42, spriteImage, 10*48, 60, facingLeft, 48, 36, 0);
+					DrawPiece((Graphics2D) g, 16, -42, spriteImage, 10 * 48, 60, facingLeft, 48, 36, 0);
 				} else {
-					DrawPiece((Graphics2D) g, -32, -42, spriteImage, 10*48, 60, facingLeft, 48, 36, 0);
+					DrawPiece((Graphics2D) g, -32, -42, spriteImage, 10 * 48, 60, facingLeft, 48, 36, 0);
 				}
 			}
 
@@ -282,7 +299,7 @@ public class Entity {
 
 		}
 		if (left) {
-			if ((xv * -1) + walkspeed >= xvMax) {
+			if ((xv * -1) - walkspeed >= xvMax) {
 				xv = xvMax * -1;
 			} else {
 				xv -= walkspeed;

@@ -30,6 +30,7 @@ public class Player extends Entity {
 		} catch (IOException e1) {
 			// e1.printStackTrace();
 		}
+
 	}
 
 	// draw player
