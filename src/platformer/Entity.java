@@ -28,12 +28,16 @@ public class Entity {
 	int imgWidth = 0;
 	int imgHeight = 0;
 	boolean facingLeft = false;
+	
 	int health = 0;
 	int maxHealth = 0;
 	int healTime = 0;
 	int maimAmount = 0;
 	int stamina = 0;
 	int power = 0;
+	int armor = 0;
+	
+	
 	int iframes = 0;
 	int attackOffset = 16;
 
@@ -221,7 +225,7 @@ public class Entity {
 		for (int i = 0;i<maxHealth-maimAmount;i++){
 			int shift = 0;
 			
-			if (health<i){
+			if (health<=i){
 				shift = 24;
 			}
 			
@@ -416,12 +420,13 @@ public class Entity {
 	public void takeDamage(Main game) {
 
 		for (DamageField x : game.damageFields) {
-			if (x.collides(getRect()) && iframes == 0) {
-				health -= x.damage;
+			if (x.collides(getRect()) && iframes == 0&&x.damage>armor) {
+				health -= x.damage-armor;
 				iframes = 8;
 				xv = x.knockBack * (1 - knockBackResist);
 				yv += x.knockBackUp * (1 - knockBackResist);
-				maimAmount += x.maimDamage;
+				if(x.maimDamage>armor){
+				maimAmount += x.maimDamage-armor;}
 				healTime = 0;
 			}
 			if ((health <= 0 && canTakeDamage) || (y > 1000) && canBeRemoved) {

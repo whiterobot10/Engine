@@ -70,19 +70,19 @@ super.draw(g, game);
 //
 //		}
 		
-		if (health > 0) {
-			g.setColor(Color.gray);
-			g.fillRect((int) x - (maxHealth / 2), (int) y - (imgHeight / 2) - 10, maxHealth, 5);
-			g.setColor(Color.RED);
-			if (this == game.PC) {
-				g.setColor(Color.CYAN);
-			}
-			g.fillRect((int) x - (maxHealth / 2), (int) y - (imgHeight / 2) - 10, health, 5);
-
-			g.setColor(Color.black);
-			g.fillRect((int) (x - (maxHealth / 2)) + (maxHealth - maimAmount), (int) y - (imgHeight / 2) - 10,
-					maimAmount, 5);
-		}
+//		if (health > 0) {
+//			g.setColor(Color.gray);
+//			g.fillRect((int) x - (maxHealth / 2), (int) y - (imgHeight / 2) - 10, maxHealth, 5);
+//			g.setColor(Color.RED);
+//			if (this == game.PC) {
+//				g.setColor(Color.CYAN);
+//			}
+//			g.fillRect((int) x - (maxHealth / 2), (int) y - (imgHeight / 2) - 10, health, 5);
+//
+//			g.setColor(Color.black);
+//			g.fillRect((int) (x - (maxHealth / 2)) + (maxHealth - maimAmount), (int) y - (imgHeight / 2) - 10,
+//					maimAmount, 5);
+//		}
 
 	}
 

@@ -163,7 +163,7 @@ public class Main extends JPanel implements Runnable {
 	}
 
 	public void makeDoor(int x, int y) {
-		entities.add(new Baracade(48 * x + 24, -48 * y, 15));
+		entities.add(new Baracade(48 * x + 24, -48 * y, 12, 1));
 	}
 
 	void defineObjects() {

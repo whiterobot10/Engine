@@ -13,7 +13,7 @@ import javafx.scene.media.MediaPlayer;
 public class Baracade extends Entity {
 	int phase = 0;
 
-	public Baracade(double xstart, double ystart, int setHealth) {
+	public Baracade(double xstart, double ystart, int setHealth, int setArmor) {
 		super(xstart, ystart);
 		maxHealth = setHealth;
 		health = setHealth;
@@ -22,6 +22,7 @@ public class Baracade extends Entity {
 		imgWidth =48;
 		imgHeight=96;
 		canBeRemoved = true;
+		armor=setArmor;
 
 		try {
 			spriteImage = Main.resize(ImageIO.read(new File("Doors.png")), 96, 96);
@@ -58,7 +59,7 @@ public class Baracade extends Entity {
 
 	@Override
 	public void draw(Graphics g, Main game) {
-		
+		super.showhealth(g);
 		DrawPiece((Graphics2D) g, 0, 0, spriteImage, 0, 0, facingLeft, 48, 96, 0);
 	}
 
