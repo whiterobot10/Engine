@@ -2,6 +2,8 @@ package platformer;
 
 import java.awt.Frame;
 import java.awt.Window;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 
@@ -18,6 +20,15 @@ public class Just_Jump {
 		f.setResizable(true);
 		f.setVisible(true);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.addWindowListener(new WindowAdapter()
+		{
+			public void windowClosing(WindowEvent e)
+		    {
+				System.out.println("closing");
+		    	System.exit(0);
+
+		    }
+		});
 		f.setTitle("...");
 		f.setLocationRelativeTo(null);
 	}
