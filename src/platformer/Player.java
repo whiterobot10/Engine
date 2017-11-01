@@ -113,12 +113,12 @@ super.draw(g, game);
 
 		double scrollXAmount = screenSize.width * 0.4;
 
-		while (x > game.scrollX + (screenSize.width - scrollXAmount)) {
+		while (x > game.scrollX + (screenSize.width * 0.6)) {
 			game.scrollX += 1;
 		}
 
-		while (x < game.scrollX + scrollXAmount) {
-			game.scrollX += x - (game.scrollX + scrollXAmount);
+		while (x < game.scrollX + (screenSize.width * 0.2)) {
+			game.scrollX -= 1;
 
 		}
 		if (attack2 > 0) {
