@@ -138,9 +138,10 @@ public class Bullet extends Entity {
 	@Override
 	public void makeDamage(Main game) {
 		if (hitWall&&type==0) {
-			game.damageFields.add(new DamageField((int) x - 3 - (width / 2), (int) y - 3 - (height / 2),
-					(int) x + (width / 2) + 3, (int) y + (height / 2) + 3, damage, 0, 0, maimDamage));
+			//game.damageFields.add(new DamageField((int) x - 3 - (width / 2), (int) y - 3 - (height / 2),
+			//		(int) x + (width / 2) + 3, (int) y + (height / 2) + 3, damage, 0, 0, maimDamage));
 			needsRemoval=true;
+			game.damageFields.add(new Explosion((int)x, (int)y, damage, (int)maimDamage,10));
 		} else if (hitWall && type == 1) {
 			try {
 				spriteImage = Main.resize(ImageIO.read(new File("explosion.png")), 512, 64);

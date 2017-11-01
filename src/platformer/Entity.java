@@ -29,7 +29,6 @@ public class Entity {
 	int imgHeight = 0;
 	boolean facingLeft = false;
 
-	
 	int health = 0;
 	int maxHealth = 0;
 	int healTime = 0;
@@ -37,9 +36,10 @@ public class Entity {
 	int stamina = 0;
 	int power = 0;
 	int armor = 0;
-	boolean canMaim=true;
-	
-	
+	boolean canMaim = true;
+
+	int type = 1;
+
 	int iframes = 0;
 	int attackOffset = 16;
 
@@ -83,7 +83,7 @@ public class Entity {
 
 	{
 		try {
-			heartImage = Main.resize(ImageIO.read(new File("Hearts.png")), 96, 48);
+			heartImage = Main.resize(ImageIO.read(new File("Hearts.png")), 96, 72);
 		} catch (IOException e1) {
 			// e1.printStackTrace();
 		}
@@ -210,7 +210,7 @@ public class Entity {
 		return new Rectangle((int) x - (width / 2), (int) y - (height / 2), width, height);
 
 	}
-	
+
 	// draw entity
 	public void showHitBox(Graphics g) {
 		g.setColor(Color.RED);
@@ -221,52 +221,52 @@ public class Entity {
 		g.fillOval((int) x - 5, (int) y - 5, 10, 10);
 	}
 
-	
-	public void showhealth(Graphics g){
-		
-		for (int i = 0;i<maxHealth-maimAmount;i++){
+	public void showhealth(Graphics g) {
+
+		for (int i = 0; i < maxHealth - maimAmount; i++) {
 			int shift = 0;
-			if (health<=i){
+			if (health <= i) {
 				shift = 48;
 			}
-			
 
-			if(i%4==0){
-				DrawPiece((Graphics2D) g, ((maxHealth/8*24)+(i/4*-24))+27-((maxHealth*24)/8)+14, 23, heartImage, 0+shift, 0, false, 12, 12, 0);	
+			if (i % 4 == 0) {
+				DrawPiece((Graphics2D) g, ((maxHealth / 8 * 24) + (i / 4 * -24)) + 27 - ((maxHealth * 24) / 8) + 14, 23,
+						heartImage, 0 + shift, 0 + (type*24), false, 12, 12, 0);
 			}
-			if(i%4==3){
-				DrawPiece((Graphics2D) g, ((maxHealth/8*24)+(i/4*-24))+15-((maxHealth*24)/8)+14, 23, heartImage, 12+shift, 0, false, 12, 12, 0);	
+			if (i % 4 == 3) {
+				DrawPiece((Graphics2D) g, ((maxHealth / 8 * 24) + (i / 4 * -24)) + 15 - ((maxHealth * 24) / 8) + 14, 23,
+						heartImage, 12 + shift, 0 + (type*24), false, 12, 12, 0);
 			}
-			if(i%4==2){
-				DrawPiece((Graphics2D) g, ((maxHealth/8*24)+(i/4*-24))+15-((maxHealth*24)/8)+14, 11, heartImage, 12+shift, 12, false, 12, 12, 0);	
+			if (i % 4 == 2) {
+				DrawPiece((Graphics2D) g, ((maxHealth / 8 * 24) + (i / 4 * -24)) + 15 - ((maxHealth * 24) / 8) + 14, 11,
+						heartImage, 12 + shift, 12 + (type*24), false, 12, 12, 0);
 			}
-			if(i%4==1){
-				DrawPiece((Graphics2D) g, ((maxHealth/8*24)+(i/4*-24))+27-((maxHealth*24)/8)+14, 11, heartImage, 0+shift, 12, false, 12, 12, 0);	
+			if (i % 4 == 1) {
+				DrawPiece((Graphics2D) g, ((maxHealth / 8 * 24) + (i / 4 * -24)) + 27 - ((maxHealth * 24) / 8) + 14, 11,
+						heartImage, 0 + shift, 12 + (type*24), false, 12, 12, 0);
 			}
-			
-			
+
 		}
-		
+
 	}
-	
-	
+
 	public void draw(Graphics g, Main game) {
-		
+
 		if (game.Show_Hit_Boxes) {
 			showHitBox(g);
 		}
-		
 
 		showhealth(g);
 
+		// DrawPiece((Graphics2D) g, -11, 23, heartImage, 0, 0, false, 12, 12,
+		// 0);
+		// DrawPiece((Graphics2D) g, -20, 23, heartImage, 12, 0, false, 12, 12,
+		// 0);
+		// DrawPiece((Graphics2D) g, -11, 11, heartImage, 0, 12, false, 12, 12,
+		// 0);
+		// DrawPiece((Graphics2D) g, -20, 11, heartImage, 12, 12, false, 12, 12,
+		// 0);
 
-		//DrawPiece((Graphics2D) g, -11, 23, heartImage, 0, 0, false, 12, 12, 0);
-		//DrawPiece((Graphics2D) g, -20, 23, heartImage, 12, 0, false, 12, 12, 0);
-		//DrawPiece((Graphics2D) g, -11, 11, heartImage, 0, 12, false, 12, 12, 0);
-		//DrawPiece((Graphics2D) g, -20, 11, heartImage, 12, 12, false, 12, 12, 0);
-		
-		
-		
 		y += 2;
 
 		if (attack2 != 0) {
@@ -307,22 +307,25 @@ public class Entity {
 		}
 		y -= 2;
 
-//		if (mOB) {
-//			if (health > 0) {
-//				g.setColor(Color.gray);
-//				g.fillRect((int) x - (maxHealth / 2), (int) y - (imgHeight / 2) - 10, maxHealth, 5);
-//				g.setColor(Color.RED);
-//				if (this == game.PC) {
-//					g.setColor(Color.CYAN);
-//				}
-//				g.fillRect((int) x - (maxHealth / 2), (int) y - (imgHeight / 2) - 10, health, 5);
-//
-//				g.setColor(Color.black);
-//				g.fillRect((int) (x - (maxHealth / 2)) + (maxHealth - maimAmount), (int) y - (imgHeight / 2) - 10,
-//						maimAmount, 5);
-//			}
-//
-//		}
+		// if (mOB) {
+		// if (health > 0) {
+		// g.setColor(Color.gray);
+		// g.fillRect((int) x - (maxHealth / 2), (int) y - (imgHeight / 2) - 10,
+		// maxHealth, 5);
+		// g.setColor(Color.RED);
+		// if (this == game.PC) {
+		// g.setColor(Color.CYAN);
+		// }
+		// g.fillRect((int) x - (maxHealth / 2), (int) y - (imgHeight / 2) - 10,
+		// health, 5);
+		//
+		// g.setColor(Color.black);
+		// g.fillRect((int) (x - (maxHealth / 2)) + (maxHealth - maimAmount),
+		// (int) y - (imgHeight / 2) - 10,
+		// maimAmount, 5);
+		// }
+		//
+		// }
 
 	}
 
@@ -421,15 +424,17 @@ public class Entity {
 	public void takeDamage(Main game) {
 
 		for (DamageField x : game.damageFields) {
-			if (x.collides(getRect()) && iframes == 0&&x.damage>armor) {
-				health -= x.damage-armor;
-				iframes = 8;
-				xv = x.knockBack * (1 - knockBackResist);
-				yv += x.knockBackUp * (1 - knockBackResist);
-				if(x.maimDamage>armor&&canMaim){
-				maimAmount += x.maimDamage-armor;}
-				healTime = 0;
-			}
+			x.takeDamage(this);
+//			if (x.collides(getRect()) && iframes == 0 && x.damage > armor) {
+//				health -= x.damage - armor;
+//				iframes = 8;
+//				xv = x.knockBack * (1 - knockBackResist);
+//				yv += x.knockBackUp * (1 - knockBackResist);
+//				if (x.maimDamage > armor && canMaim) {
+//					maimAmount += x.maimDamage - armor;
+//				}
+//				healTime = 0;
+//			}
 			if ((health <= 0 && canTakeDamage) || (y > 1000) && canBeRemoved) {
 				needsRemoval = true;
 			}

@@ -24,6 +24,7 @@ public class Player extends Entity {
 		attack1Delay = 10;
 		height = 72;
 		imgHeight=96;
+		type =0;
 
 		try {
 			spriteImage = Main.resize(ImageIO.read(new File("PlayerSprites.png")), 48*11, 48*2);

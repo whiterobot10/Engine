@@ -26,6 +26,20 @@ public class DamageField extends Box {
 		
 
 	}
+	
+	public void takeDamage(Entity e) {
+		if (collides(e.getRect()) && e.iframes == 0 && this.damage > e.armor) {
+		e.health -= damage - e.armor;
+		e.iframes = 8;
+		e.xv = knockBack * (1 - e.knockBackResist);
+		e.yv += knockBackUp * (1 - e.knockBackResist);
+		if (maimDamage > e.armor && e.canMaim) {
+			e.maimAmount += maimDamage - e.armor;
+		}
+		e.healTime = 0;
+	}	
+		
+	}
 
 
 }
