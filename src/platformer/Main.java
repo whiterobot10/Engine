@@ -309,7 +309,7 @@ public class Main extends JPanel implements Runnable {
 		// entities.add(new Blocade(3650, 175, 30));
 
 		objectDefine = true;
-		repaint();
+		//repaint();
 	}
 
 	private void makeEnemy(int x, int y, String string) {
