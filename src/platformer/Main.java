@@ -309,7 +309,7 @@ public class Main extends JPanel implements Runnable {
 		// entities.add(new Blocade(3650, 175, 30));
 
 		objectDefine = true;
-		//repaint();
+		// repaint();
 	}
 
 	private void makeEnemy(int x, int y, String string) {
@@ -330,7 +330,6 @@ public class Main extends JPanel implements Runnable {
 	// drawing
 
 	public void paint(Graphics g) {
-
 		super.paint(g);
 		AffineTransform Trans = new AffineTransform();
 		Trans.translate(scrollX * -1, scrollY * -1);
@@ -349,7 +348,6 @@ public class Main extends JPanel implements Runnable {
 				System.out.println("SizeBefore " + test1 + " SizeAfter " + boxes.size());
 			}
 
-			PC.draw(g, this);
 			if (PC.iframes % 6 < 3) {
 
 			}
@@ -381,45 +379,6 @@ public class Main extends JPanel implements Runnable {
 		}
 
 	}
-	// Exception in thread "AWT-EventQueue-0"
-	// java.util.ConcurrentModificationException
-	// at java.util.ArrayList$Itr.checkForComodification(Unknown Source)
-	// at java.util.ArrayList$Itr.next(Unknown Source)
-	// at platformer.Main.paint(Main.java:201)
-	// at javax.swing.JComponent.paintToOffscreen(Unknown Source)
-	// at javax.swing.RepaintManager$PaintManager.paintDoubleBuffered(Unknown
-	// Source)
-	// at javax.swing.RepaintManager$PaintManager.paint(Unknown Source)
-	// at javax.swing.RepaintManager.paint(Unknown Source)
-	// at javax.swing.JComponent._paintImmediately(Unknown Source)
-	// at javax.swing.JComponent.paintImmediately(Unknown Source)
-	// at javax.swing.RepaintManager$4.run(Unknown Source)
-	// at javax.swing.RepaintManager$4.run(Unknown Source)
-	// at java.security.AccessController.doPrivileged(Native Method)
-	// at
-	// java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown
-	// Source)
-	// at javax.swing.RepaintManager.paintDirtyRegions(Unknown Source)
-	// at javax.swing.RepaintManager.paintDirtyRegions(Unknown Source)
-	// at javax.swing.RepaintManager.prePaintDirtyRegions(Unknown Source)
-	// at javax.swing.RepaintManager.access$1200(Unknown Source)
-	// at javax.swing.RepaintManager$ProcessingRunnable.run(Unknown Source)
-	// at java.awt.event.InvocationEvent.dispatch(Unknown Source)
-	// at java.awt.EventQueue.dispatchEventImpl(Unknown Source)
-	// at java.awt.EventQueue.access$500(Unknown Source)
-	// at java.awt.EventQueue$3.run(Unknown Source)
-	// at java.awt.EventQueue$3.run(Unknown Source)
-	// at java.security.AccessController.doPrivileged(Native Method)
-	// at
-	// java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown
-	// Source)
-	// at java.awt.EventQueue.dispatchEvent(Unknown Source)
-	// at java.awt.EventDispatchThread.pumpOneEventForFilters(Unknown Source)
-	// at java.awt.EventDispatchThread.pumpEventsForFilter(Unknown Source)
-	// at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
-	// at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
-	// at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
-	// at java.awt.EventDispatchThread.run(Unknown Source)
 
 	public void GameOver() {
 		boxes.clear();
@@ -555,13 +514,14 @@ public class Main extends JPanel implements Runnable {
 				}
 				newEntities.clear();
 
-				repaint();
 				movementFrame = -1;
 
 			} else {
 
 				movementFrame += 1;
 			}
+
+			repaint();
 
 			fpsSettler();
 
@@ -586,6 +546,5 @@ public class Main extends JPanel implements Runnable {
 		}
 
 	}
-	
 
 }
