@@ -24,8 +24,8 @@ public class Just_Jump {
 		{
 			public void windowClosing(WindowEvent e)
 		    {
+				f.panel.running=false;
 				System.out.println("closing");
-		    	System.exit(0);
 
 		    }
 		});

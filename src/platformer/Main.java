@@ -95,8 +95,15 @@ public class Main extends JPanel implements Runnable {
 
 	public boolean objectDefine = false;
 	public boolean running = true;
+	public boolean Started = false;
 
-	public Thread game;
+	public Thread game = new Thread(new Runnable() {
+
+		@Override
+		public void run() {
+			game.setDaemon(true);
+		}
+	});
 
 	public Main(Display f) {
 		setBackground(Color.LIGHT_GRAY);
@@ -482,51 +489,54 @@ public class Main extends JPanel implements Runnable {
 
 	@Override
 	public void run() {
-		while (running) {
-			if (movementFrame >= movementSpeed) {
+		if (!Started) {
+			Started=true;
+			System.out.println(game.isDaemon());
+			while (running) {
+				if (movementFrame >= movementSpeed) {
 
-				PC.update(this);
-				for (Entity e : entities) {
-					e.update(this);
-				}
-
-				damageFields.clear();
-				PC.makeDamage(this);
-				for (Entity e : entities) {
-					e.makeDamage(this);
-				}
-				PC.takeDamage(this);
-				for (Entity e : entities) {
-					e.takeDamage(this);
-				}
-
-				events();
-
-				for (int i = 0; i < entities.size(); i++) {
-					if (entities.get(i).needsRemoval) {
-						entities.remove(i);
-						i--;
+					PC.update(this);
+					for (Entity e : entities) {
+						e.update(this);
 					}
+
+					damageFields.clear();
+					PC.makeDamage(this);
+					for (Entity e : entities) {
+						e.makeDamage(this);
+					}
+					PC.takeDamage(this);
+					for (Entity e : entities) {
+						e.takeDamage(this);
+					}
+
+					events();
+
+					for (int i = 0; i < entities.size(); i++) {
+						if (entities.get(i).needsRemoval) {
+							entities.remove(i);
+							i--;
+						}
+					}
+
+					for (Entity e : newEntities) {
+						entities.add(e);
+					}
+					newEntities.clear();
+
+					movementFrame = -1;
+
+				} else {
+
+					movementFrame += 1;
 				}
 
-				for (Entity e : newEntities) {
-					entities.add(e);
-				}
-				newEntities.clear();
+				repaint();
+			
+				fpsSettler();
 
-				movementFrame = -1;
-
-			} else {
-
-				movementFrame += 1;
 			}
-
-			repaint();
-
-			fpsSettler();
-
 		}
-
 	}
 
 	// fpssettler
@@ -535,7 +545,7 @@ public class Main extends JPanel implements Runnable {
 
 		long Currant = System.currentTimeMillis();
 		long TimeCheck = System.currentTimeMillis() + 20;
-		while (TimeCheck - Currant >= 10) {
+		while (TimeCheck - Currant >= 10&&running) {
 			try {
 				Thread.sleep(1);
 			} catch (InterruptedException e) {
